@@ -3,7 +3,8 @@
   --forest-deep: #102a1d;
   --moss: #78915d;
   --leaf: #b5c985;
-  --clay: #c56f3f;
+  --clay: #a94f28;
+  --clay-light: #e69a70;
   --paper: #f4f1e8;
   --cream: #e7e1d3;
   --white: #fffef9;
@@ -39,6 +40,7 @@ h3 { font-size: clamp(1.35rem, 2.3vw, 1.85rem); letter-spacing: -.025em; }
 p { margin: 0 0 1.35rem; }
 .lead { color: var(--muted); font-size: clamp(1.1rem, 1.6vw, 1.28rem); line-height: 1.7; }
 .section-dark .lead { color: #c9d3ca; }
+.section-dark .section-label { color: var(--clay-light); }
 .eyebrow { color: var(--leaf); font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
 .button { min-height: 3.65rem; padding: .95rem 1.55rem; display: inline-flex; align-items: center; justify-content: center; gap: .65rem; color: var(--white); background: var(--clay); border: 1px solid var(--clay); border-radius: 0; font-size: .77rem; font-weight: 850; letter-spacing: .09em; text-decoration: none; text-transform: uppercase; transition: background .2s ease, color .2s ease, transform .2s ease; }
 .button:hover { color: var(--paper); background: transparent; transform: translateY(-2px); }
@@ -100,7 +102,7 @@ p { margin: 0 0 1.35rem; }
 .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid #4a6253; border-left: 1px solid #4a6253; }
 .service-card { min-height: 20rem; padding: clamp(2rem, 4vw, 3.2rem); display: flex; flex-direction: column; color: var(--paper); border-right: 1px solid #4a6253; border-bottom: 1px solid #4a6253; text-decoration: none; transition: color .25s ease, background .25s ease; }
 .service-card:hover { color: var(--forest-deep); background: var(--leaf); }
-.service-card .number { margin-bottom: auto; color: var(--clay); font-size: .72rem; font-weight: 900; letter-spacing: .16em; }
+.service-card .number { margin-bottom: auto; color: var(--clay-light); font-size: .72rem; font-weight: 900; letter-spacing: .16em; }
 .service-card h3 { margin: 4rem 0 .8rem; font-size: clamp(2rem, 3vw, 3rem); }
 .service-card p { max-width: 32rem; margin: 0; color: #bfcac2; }
 .service-card:hover p, .service-card:hover .number { color: var(--forest-deep); }
@@ -129,6 +131,7 @@ p { margin: 0 0 1.35rem; }
 .area-list { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem 1.2rem; margin: 2rem 0; padding: 0; list-style: none; color: var(--muted); }
 .area-list li::before { content: "—"; margin-right: .45rem; color: var(--clay); }
 .quote { position: relative; overflow: hidden; color: var(--paper); background: var(--forest); }
+.quote .lead { color: #d4ddd6; }
 .quote::after { content: "E"; position: absolute; right: -2rem; bottom: -9rem; color: rgb(255 255 255 / .035); font-family: var(--font-display); font-size: 34rem; line-height: 1; }
 .quote-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(3rem, 8vw, 8rem); align-items: start; }
 .quote h2 { margin: .9rem 0 1.4rem; }

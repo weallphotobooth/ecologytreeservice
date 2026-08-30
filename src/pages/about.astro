@@ -1,0 +1,13 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import careImage from '../assets/tree-care.png';
+---
+<BaseLayout title="About Ecology Tree Service | Mount Kisco, NY" description="Ecology Tree Service, Inc. is a Mount Kisco tree-care company established in 1999 and serving properties across the surrounding Westchester County area.">
+  <section class="page-hero"><div class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>About</span></nav><p class="eyebrow" style="margin-top:2rem">Mount Kisco since 1999</p><h1>A local company built around the landscape.</h1><p class="lead">Ecology Tree Service, Inc. was established in Mount Kisco in 1999. The company remains based on Croton Lake Road and works in the community and surrounding area.</p></div></section>
+  <section class="feature section-white">
+    <div class="feature-media"><Image src={careImage} alt="Arborist examining the structure of a mature maple" widths={[640,900,1200]} sizes="(max-width: 900px) 100vw, 53vw" format="webp" quality={82} /></div>
+    <div class="feature-copy"><p class="section-label">A practical point of view</p><h2>Tree care belongs to the whole property.</h2><p class="lead">A tree is never separate from the house, driveway, garden, street, or people beneath it.</p><p>That context shapes useful tree work. The right scope begins with looking at the tree, access, adjacent structures, and what the client needs from the space.</p><p>Ecology Tree Service has also performed tree work for the Village/Town of Mount Kisco—part of a long local connection that informs how we approach community landscapes.</p><a class="button button-outline" href="/#contact">Contact Ecology</a></div>
+  </section>
+  <section class="section section-dark"><div class="shell intro-grid"><div><p class="section-label">Business details</p><h2>Easy to reach. Easy to find.</h2></div><div class="intro-aside"><p><strong>Legal name</strong><span>Ecology Tree Service, Inc.</span></p><p><strong>Established</strong><span>May 17, 1999</span></p><p><strong>Address</strong><span>215 Croton Lake Road, Mount Kisco, NY 10549</span></p><p><strong>Phone</strong><span><a href="tel:+19142429892">(914) 242-9892</a></span></p></div></div></section>
+</BaseLayout>

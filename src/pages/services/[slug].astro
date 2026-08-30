@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { services, type Service } from '../../data/services';
+
+export function getStaticPaths() {
+  return Object.keys(services).map((slug) => ({ params: { slug }, props: services[slug as keyof typeof services] }));
+}
+
+const service = Astro.props as Service;
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.name,
+  description: service.description,
+  provider: { '@id': 'https://ecologytreeservice.com/#business' },
+  areaServed: { '@type': 'AdministrativeArea', name: 'Westchester County, New York' }
+};
+---
+<BaseLayout title={`${service.name} in Mount Kisco, NY | Ecology Tree Service`} description={service.description}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <section class="page-hero">
+    <div class="shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/#services">Services</a><span>/</span><span>{service.name}</span></nav>
+      <p class="eyebrow" style="margin-top:2rem">{service.eyebrow}</p>
+      <h1>{service.name}</h1>
+      <p class="lead">{service.intro}</p>
+      <a class="button" href="tel:+19142429892">Call (914) 242-9892</a>
+    </div>
+  </section>
+  <Image class="service-visual" src={service.image} alt={service.alt} widths={[720, 1080, 1440, 1920]} sizes="100vw" format="webp" quality={82} loading="eager" />
+  <section class="section section-white">
+    <div class="shell content-grid">
+      <article class="prose">
+        {service.sections.map((section) => (
+          <section>
+            <h2>{section.title}</h2>
+            <p>{section.body}</p>
+            {'bullets' in section && section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+          </section>
+        ))}
+      </article>
+      <aside class="aside-card">
+        <p class="eyebrow">Request an estimate</p>
+        <h2>Have a tree in mind?</h2>
+        <p>Tell us the property location and what you’re seeing. We’ll discuss the next step.</p>
+        <a class="button" href="mailto:info@ecologytreeservice.com?subject=Tree%20service%20estimate">Email Ecology</a>
+        <a class="button button-secondary" href="tel:+19142429892">Call Now</a>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,201 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import heroImage from '../assets/hero-arborist.png';
+import removalImage from '../assets/tree-removal.png';
+import careImage from '../assets/tree-care.png';
+
+const faq = [
+  {
+    question: 'How do I request an estimate?',
+    answer: 'Call (914) 242-9892 or email a short description of the tree work, the property address, and the best way to reach you. Photos are helpful when they can be taken safely.'
+  },
+  {
+    question: 'Do you work outside Mount Kisco?',
+    answer: 'Ecology Tree Service is based in Mount Kisco and serves properties in nearby Westchester County communities. Call with your address to confirm scheduling for your location.'
+  },
+  {
+    question: 'What should I do after storm damage?',
+    answer: 'Stay clear of hanging limbs, unstable trees, and any tree touching a utility line. For power-line hazards, contact the utility or emergency services first. Then call us to discuss the tree work.'
+  },
+  {
+    question: 'Can a tree be pruned instead of removed?',
+    answer: 'Often, yes. The right approach depends on the tree’s condition, structure, location, and your goals. We can look at the site and discuss practical options before work begins.'
+  }
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer }
+  }))
+};
+---
+<BaseLayout
+  title="Ecology Tree Service | Tree Care in Mount Kisco, NY"
+  description="Professional tree pruning, removal, storm-damage response and property care from a Mount Kisco tree service established in 1999. Call (914) 242-9892."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="hero">
+    <div class="hero-media" data-parallax=".12">
+      <Image
+        src={heroImage}
+        alt="Arborist crew carefully pruning a mature tree on a wooded Westchester property"
+        widths={[720, 1080, 1440, 1920]}
+        sizes="100vw"
+        format="webp"
+        quality={82}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Mount Kisco · Westchester County</p>
+        <h1>Tree care,<br/><em>rooted here.</em></h1>
+        <p class="lead">Thoughtful pruning, careful removals, and dependable tree work for homes, properties, and the community around Mount Kisco.</p>
+        <div class="hero-actions">
+          <a class="button" href="tel:+19142429892">Call (914) 242-9892</a>
+          <a class="button button-secondary" href="#contact">Request an Estimate</a>
+        </div>
+      </div>
+      <div class="hero-note" aria-label="Established in 1999">
+        <strong>1999</strong>
+        <span>Established in<br/>Mount Kisco, New York</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip" aria-label="Business highlights">
+    <div class="shell trust-grid">
+      <div class="trust-item"><span class="trust-number">01</span><span><strong>Local by design</strong><small>Based on Croton Lake Road in Mount Kisco</small></span></div>
+      <div class="trust-item"><span class="trust-number">02</span><span><strong>Careful approach</strong><small>Site-aware planning from first look to cleanup</small></span></div>
+      <div class="trust-item"><span class="trust-number">03</span><span><strong>Direct contact</strong><small>Call the local team at (914) 242-9892</small></span></div>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="shell intro-grid">
+      <div data-reveal>
+        <p class="section-label">Tree work with context</p>
+        <h2>Your trees shape the whole property.</h2>
+      </div>
+      <div class="intro-copy" data-reveal>
+        <p class="lead">Good tree work considers more than the branch in front of you. It considers the tree’s structure, the surrounding landscape, nearby buildings, access, and what the property needs next.</p>
+        <p>Ecology Tree Service has been part of the Mount Kisco business community since 1999. We bring a practical, property-minded approach to tree care across the area.</p>
+        <div class="intro-aside">
+          <p><strong>Based in</strong><span>Mount Kisco, New York</span></p>
+          <p><strong>Serving</strong><span>Westchester County communities</span></p>
+          <p><strong>Contact</strong><span>(914) 242-9892</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="services">
+    <div class="shell">
+      <div class="services-head" data-reveal>
+        <div><p class="section-label">Core services</p><h2>Clear solutions for complex trees.</h2></div>
+        <p class="lead">Start with the tree, the site, and your priorities. We’ll discuss the right scope for the property.</p>
+      </div>
+      <div class="service-grid" data-reveal>
+        <a class="service-card" href="/services/tree-pruning"><span class="number">01 / PRUNING</span><h3>Tree Pruning</h3><p>Selective work to improve clearance, structure, and the way mature trees fit the property.</p></a>
+        <a class="service-card" href="/services/tree-removal"><span class="number">02 / REMOVAL</span><h3>Tree Removal</h3><p>Controlled removal planning for trees that are declining, damaged, poorly located, or no longer viable.</p></a>
+        <a class="service-card" href="/services/storm-damage"><span class="number">03 / STORM</span><h3>Storm Damage</h3><p>Response for broken limbs and storm-affected trees, with safety and site conditions considered first.</p></a>
+        <a class="service-card" href="/services/stump-grinding"><span class="number">04 / STUMPS</span><h3>Stump Grinding</h3><p>Practical stump removal to clear usable space and help prepare the area for what comes next.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature section-white">
+    <div class="feature-media">
+      <Image src={removalImage} alt="Professional crew lowering a rigged trunk section during a controlled tree removal" widths={[640, 900, 1200]} sizes="(max-width: 900px) 100vw, 53vw" format="webp" quality={82} loading="lazy" />
+    </div>
+    <div class="feature-copy" data-reveal>
+      <p class="section-label">Removal & storm work</p>
+      <h2>Control matters.</h2>
+      <p class="lead">Large trees, tight access, nearby structures, and storm damage all require a deliberate plan.</p>
+      <ul class="check-list">
+        <li>Site and access review</li>
+        <li>Controlled sectional removal</li>
+        <li>Storm-damaged tree work</li>
+        <li>Debris and work-area cleanup</li>
+      </ul>
+      <a class="text-link" href="/services/tree-removal">Explore tree removal</a>
+    </div>
+  </section>
+
+  <section class="feature reverse section-white">
+    <div class="feature-copy" data-reveal>
+      <p class="section-label">Pruning & tree care</p>
+      <h2>Keep the right trees thriving.</h2>
+      <p class="lead">Pruning is most useful when it responds to the tree’s structure and the way people use the space around it.</p>
+      <ul class="check-list">
+        <li>Clearance from roofs and structures</li>
+        <li>Dead or damaged branch removal</li>
+        <li>Canopy and structural considerations</li>
+        <li>Property-specific recommendations</li>
+      </ul>
+      <a class="text-link" href="/services/tree-pruning">Explore tree pruning</a>
+    </div>
+    <div class="feature-media">
+      <Image src={careImage} alt="Arborist inspecting the trunk and pruning points of a mature maple" widths={[640, 900, 1200]} sizes="(max-width: 900px) 100vw, 53vw" format="webp" quality={82} loading="lazy" />
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="shell">
+      <p class="section-label">How it works</p>
+      <h2 data-reveal>From first call to a clean site.</h2>
+      <div class="process-grid" data-reveal>
+        <div class="process-step"><span>01</span><h3>Tell us what you see</h3><p>Call or email with the property location, the tree concern, and any timing or access details.</p></div>
+        <div class="process-step"><span>02</span><h3>Review the property</h3><p>We look at the tree, surrounding structures, access, and the practical scope of the work.</p></div>
+        <div class="process-step"><span>03</span><h3>Complete the work</h3><p>The crew carries out the agreed tree work and leaves the work area orderly.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="shell area-grid">
+      <div class="area-map" aria-hidden="true"><div class="map-pin"><span>Mount<br/>Kisco</span></div></div>
+      <div data-reveal>
+        <p class="section-label">Local service area</p>
+        <h2>Close to the properties we care for.</h2>
+        <p class="lead">Based in Mount Kisco and serving nearby communities throughout central and northern Westchester County.</p>
+        <ul class="area-list">
+          <li>Mount Kisco</li><li>Bedford</li><li>Chappaqua</li><li>Armonk</li><li>New Castle</li><li>Pleasantville</li><li>Katonah</li><li>North Castle</li>
+        </ul>
+        <a class="button button-outline" href="/service-area">View Service Area</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section quote" id="contact">
+    <div class="shell quote-grid">
+      <div data-reveal>
+        <p class="eyebrow">Start a conversation</p>
+        <h2>Let’s take a look at the tree.</h2>
+        <p class="lead">Tell us where the property is and what you’re concerned about. We’ll follow up to discuss the next step.</p>
+      </div>
+      <div class="contact-options" data-reveal>
+        <a class="contact-option" href="tel:+19142429892"><small>Call</small><strong>(914) 242-9892</strong></a>
+        <a class="contact-option" href="mailto:info@ecologytreeservice.com?subject=Estimate%20request%20from%20the%20website"><small>Email</small><strong>info@ecologytreeservice.com</strong></a>
+        <div class="contact-option"><small>Visit / Mail</small><strong>215 Croton Lake Road<br/>Mount Kisco, NY 10549</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="narrow">
+      <p class="section-label">Common questions</p>
+      <h2>Before you call.</h2>
+      <div class="faq-list">
+        {faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

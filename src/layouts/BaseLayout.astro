@@ -1,0 +1,96 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  image = '/og-image.jpg',
+  noindex = false
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
+  '@id': 'https://ecologytreeservice.com/#business',
+  name: 'Ecology Tree Service, Inc.',
+  alternateName: 'Ecology Tree Care',
+  url: 'https://ecologytreeservice.com',
+  telephone: '+1-914-242-9892',
+  email: 'info@ecologytreeservice.com',
+  foundingDate: '1999-05-17',
+  image: 'https://ecologytreeservice.com/og-image.jpg',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '215 Croton Lake Road',
+    addressLocality: 'Mount Kisco',
+    addressRegion: 'NY',
+    postalCode: '10549',
+    addressCountry: 'US'
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Mount Kisco' },
+    { '@type': 'AdministrativeArea', name: 'Westchester County' }
+  ],
+  priceRange: '$$'
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#193b2a" />
+    <meta name="format-detection" content="telephone=yes" />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ecology Tree Service" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <script>
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduceMotion) {
+        const parallax = document.querySelectorAll<HTMLElement>('[data-parallax]');
+        let ticking = false;
+        const update = () => {
+          const y = window.scrollY;
+          parallax.forEach((item) => {
+            const speed = Number(item.dataset.parallax || .12);
+            item.style.setProperty('--parallax-y', `${Math.min(y * speed, 120)}px`);
+          });
+          ticking = false;
+        };
+        window.addEventListener('scroll', () => {
+          if (!ticking) { requestAnimationFrame(update); ticking = true; }
+        }, { passive: true });
+      }
+    </script>
+  </body>
+</html>

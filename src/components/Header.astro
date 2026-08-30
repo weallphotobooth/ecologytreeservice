@@ -1,0 +1,39 @@
+---
+import Logo from './Logo.astro';
+const path = Astro.url.pathname;
+---
+<header class="site-header" data-header>
+  <div class="utility">
+    <div class="shell utility-inner">
+      <span>Mount Kisco, New York · Serving Westchester County</span>
+      <a href="tel:+19142429892">Call <strong>(914) 242-9892</strong></a>
+    </div>
+  </div>
+  <div class="shell nav-wrap">
+    <Logo />
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span class="sr-only">Open navigation</span><i></i><i></i><i></i>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary navigation" data-nav>
+      <a class:list={[{ active: path === '/' }]} href="/">Home</a>
+      <a class:list={[{ active: path.startsWith('/services') }]} href="/#services">Services</a>
+      <a class:list={[{ active: path === '/about' }]} href="/about">About</a>
+      <a class:list={[{ active: path === '/service-area' }]} href="/service-area">Service Area</a>
+      <a class="button button-small" href="/#contact">Request an Estimate</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const nav = document.querySelector('[data-nav]');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    nav?.classList.toggle('open', !open);
+  });
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+    toggle?.setAttribute('aria-expanded', 'false');
+    nav.classList.remove('open');
+  }));
+</script>

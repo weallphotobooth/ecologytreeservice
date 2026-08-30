@@ -1,0 +1,24 @@
+---
+interface Props { light?: boolean; }
+const { light = false } = Astro.props;
+---
+<a class:list={["brand", { light }]} href="/" aria-label="Ecology Tree Service home">
+  <svg class="brand-mark" viewBox="0 0 54 54" aria-hidden="true">
+    <path d="M27 3 5 15v24l22 12 22-12V15L27 3Z" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M26 42V17m0 5-8-5m8 13 10-7m-10 12-7 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
+    <path d="M28 11c7 0 11 4 11 10-7 1-11-3-11-10Z" fill="currentColor"/>
+  </svg>
+  <span>
+    <strong>Ecology</strong>
+    <small>Tree Service</small>
+  </span>
+</a>
+
+<style>
+  .brand { color: var(--ink); display: inline-flex; align-items: center; gap: .72rem; text-decoration: none; line-height: 1; }
+  .brand.light { color: var(--paper); }
+  .brand-mark { width: 2.9rem; height: 2.9rem; flex: 0 0 auto; }
+  .brand span { display: grid; gap: .18rem; }
+  .brand strong { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
+  .brand small { font-size: .64rem; font-weight: 800; letter-spacing: .21em; text-transform: uppercase; }
+</style>

@@ -1,0 +1,219 @@
+- generic [active] [ref=f1e1]:
+  - link "Skip to content" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e3]:
+    - link [ref=f1e6] [cursor=pointer]:
+      - /url: tel:+19142429892
+      - text: Call
+      - strong [ref=f1e7]: (914) 242-9892
+    - generic [ref=f1e8]:
+      - link "Ecology Tree Service home" [ref=f1e9] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f1e14]:
+          - strong [ref=f1e15]: Ecology
+          - generic [ref=f1e16]: Tree Service
+      - button "Open navigation" [ref=f1e17]
+  - main [ref=f1e22]:
+    - generic [ref=f1e23]:
+      - img "Arborist crew carefully pruning a mature tree on a wooded Westchester property" [ref=f1e25]
+      - generic [ref=f1e27]:
+        - paragraph [ref=f1e28]: Mount Kisco · Westchester County
+        - heading [level=1] [ref=f1e29]:
+          - text: Tree care,
+          - emphasis [ref=f1e30]: rooted here.
+        - paragraph [ref=f1e31]: Thoughtful pruning, careful removals, and dependable tree work for homes, properties, and the community around Mount Kisco.
+        - generic [ref=f1e32]:
+          - link "Call (914) 242-9892" [ref=f1e33] [cursor=pointer]:
+            - /url: tel:+19142429892
+          - link "Request an Estimate" [ref=f1e34] [cursor=pointer]:
+            - /url: "#contact"
+    - region "Business highlights" [ref=f1e35]:
+      - generic [ref=f1e36]:
+        - generic [ref=f1e37]:
+          - generic [ref=f1e38]: "01"
+          - generic [ref=f1e39]:
+            - strong [ref=f1e40]: Local by design
+            - generic [ref=f1e41]: Based on Croton Lake Road in Mount Kisco
+        - generic [ref=f1e42]:
+          - generic [ref=f1e43]: "02"
+          - generic [ref=f1e44]:
+            - strong [ref=f1e45]: Careful approach
+            - generic [ref=f1e46]: Site-aware planning from first look to cleanup
+        - generic [ref=f1e47]:
+          - generic [ref=f1e48]: "03"
+          - generic [ref=f1e49]:
+            - strong [ref=f1e50]: Direct contact
+            - generic [ref=f1e51]: Call the local team at (914) 242-9892
+    - generic [ref=f1e53]:
+      - generic [ref=f1e54]:
+        - paragraph [ref=f1e55]: Tree work with context
+        - heading "Your trees shape the whole property." [level=2] [ref=f1e56]
+      - generic [ref=f1e57]:
+        - paragraph [ref=f1e58]: Good tree work considers more than the branch in front of you. It considers the tree’s structure, the surrounding landscape, nearby buildings, access, and what the property needs next.
+        - paragraph [ref=f1e59]: Ecology Tree Service has been part of the Mount Kisco business community since 1999. We bring a practical, property-minded approach to tree care across the area.
+        - generic [ref=f1e60]:
+          - paragraph [ref=f1e61]:
+            - strong [ref=f1e62]: Based in
+            - generic [ref=f1e63]: Mount Kisco, New York
+          - paragraph [ref=f1e64]:
+            - strong [ref=f1e65]: Serving
+            - generic [ref=f1e66]: Westchester County communities
+          - paragraph [ref=f1e67]:
+            - strong [ref=f1e68]: Contact
+            - generic [ref=f1e69]: (914) 242-9892
+    - generic [ref=f1e71]:
+      - generic [ref=f1e72]:
+        - generic [ref=f1e73]:
+          - paragraph [ref=f1e74]: Core services
+          - heading "Clear solutions for complex trees." [level=2] [ref=f1e75]
+        - paragraph [ref=f1e76]: Start with the tree, the site, and your priorities. We’ll discuss the right scope for the property.
+      - generic [ref=f1e77]:
+        - link "01 / PRUNING Tree Pruning Selective work to improve clearance, structure, and the way mature trees fit the property." [ref=f1e78] [cursor=pointer]:
+          - /url: /services/tree-pruning
+          - generic [ref=f1e79]: 01 / PRUNING
+          - heading "Tree Pruning" [level=3] [ref=f1e80]
+          - paragraph [ref=f1e81]: Selective work to improve clearance, structure, and the way mature trees fit the property.
+        - link "02 / REMOVAL Tree Removal Controlled removal planning for trees that are declining, damaged, poorly located, or no longer viable." [ref=f1e82] [cursor=pointer]:
+          - /url: /services/tree-removal
+          - generic [ref=f1e83]: 02 / REMOVAL
+          - heading "Tree Removal" [level=3] [ref=f1e84]
+          - paragraph [ref=f1e85]: Controlled removal planning for trees that are declining, damaged, poorly located, or no longer viable.
+        - link "03 / STORM Storm Damage Response for broken limbs and storm-affected trees, with safety and site conditions considered first." [ref=f1e86] [cursor=pointer]:
+          - /url: /services/storm-damage
+          - generic [ref=f1e87]: 03 / STORM
+          - heading "Storm Damage" [level=3] [ref=f1e88]
+          - paragraph [ref=f1e89]: Response for broken limbs and storm-affected trees, with safety and site conditions considered first.
+        - link "04 / STUMPS Stump Grinding Practical stump removal to clear usable space and help prepare the area for what comes next." [ref=f1e90] [cursor=pointer]:
+          - /url: /services/stump-grinding
+          - generic [ref=f1e91]: 04 / STUMPS
+          - heading "Stump Grinding" [level=3] [ref=f1e92]
+          - paragraph [ref=f1e93]: Practical stump removal to clear usable space and help prepare the area for what comes next.
+    - generic [ref=f1e94]:
+      - img "Professional crew lowering a rigged trunk section during a controlled tree removal" [ref=f1e96]
+      - generic [ref=f1e97]:
+        - paragraph [ref=f1e98]: Removal & storm work
+        - heading "Control matters." [level=2] [ref=f1e99]
+        - paragraph [ref=f1e100]: Large trees, tight access, nearby structures, and storm damage all require a deliberate plan.
+        - list [ref=f1e101]:
+          - listitem [ref=f1e102]: + Site and access review
+          - listitem [ref=f1e103]: + Controlled sectional removal
+          - listitem [ref=f1e104]: + Storm-damaged tree work
+          - listitem [ref=f1e105]: + Debris and work-area cleanup
+        - link "Explore tree removal →" [ref=f1e106] [cursor=pointer]:
+          - /url: /services/tree-removal
+    - generic [ref=f1e107]:
+      - generic [ref=f1e108]:
+        - paragraph [ref=f1e109]: Pruning & tree care
+        - heading "Keep the right trees thriving." [level=2] [ref=f1e110]
+        - paragraph [ref=f1e111]: Pruning is most useful when it responds to the tree’s structure and the way people use the space around it.
+        - list [ref=f1e112]:
+          - listitem [ref=f1e113]: + Clearance from roofs and structures
+          - listitem [ref=f1e114]: + Dead or damaged branch removal
+          - listitem [ref=f1e115]: + Canopy and structural considerations
+          - listitem [ref=f1e116]: + Property-specific recommendations
+        - link "Explore tree pruning →" [ref=f1e117] [cursor=pointer]:
+          - /url: /services/tree-pruning
+      - img "Arborist inspecting the trunk and pruning points of a mature maple" [ref=f1e119]
+    - generic [ref=f1e121]:
+      - paragraph [ref=f1e122]: How it works
+      - heading "From first call to a clean site." [level=2] [ref=f1e123]
+      - generic [ref=f1e124]:
+        - generic [ref=f1e125]:
+          - text: "01"
+          - heading "Tell us what you see" [level=3] [ref=f1e126]
+          - paragraph [ref=f1e127]: Call or email with the property location, the tree concern, and any timing or access details.
+        - generic [ref=f1e128]:
+          - text: "02"
+          - heading "Review the property" [level=3] [ref=f1e129]
+          - paragraph [ref=f1e130]: We look at the tree, surrounding structures, access, and the practical scope of the work.
+        - generic [ref=f1e131]:
+          - text: "03"
+          - heading "Complete the work" [level=3] [ref=f1e132]
+          - paragraph [ref=f1e133]: The crew carries out the agreed tree work and leaves the work area orderly.
+    - generic [ref=f1e135]:
+      - generic [ref=f1e136]: Mount Kisco
+      - generic [ref=f1e139]:
+        - paragraph [ref=f1e140]: Local service area
+        - heading "Close to the properties we care for." [level=2] [ref=f1e141]
+        - paragraph [ref=f1e142]: Based in Mount Kisco and serving nearby communities throughout central and northern Westchester County.
+        - list [ref=f1e143]:
+          - listitem [ref=f1e144]: —Mount Kisco
+          - listitem [ref=f1e145]: —Bedford
+          - listitem [ref=f1e146]: —Chappaqua
+          - listitem [ref=f1e147]: —Armonk
+          - listitem [ref=f1e148]: —New Castle
+          - listitem [ref=f1e149]: —Pleasantville
+          - listitem [ref=f1e150]: —Katonah
+          - listitem [ref=f1e151]: —North Castle
+        - link "View Service Area" [ref=f1e152] [cursor=pointer]:
+          - /url: /service-area
+    - generic [ref=f1e153]:
+      - generic [ref=f1e154]:
+        - generic [ref=f1e155]:
+          - paragraph [ref=f1e156]: Start a conversation
+          - heading "Let’s take a look at the tree." [level=2] [ref=f1e157]
+          - paragraph [ref=f1e158]: Tell us where the property is and what you’re concerned about. We’ll follow up to discuss the next step.
+        - generic [ref=f1e159]:
+          - link "Call (914) 242-9892" [ref=f1e160] [cursor=pointer]:
+            - /url: tel:+19142429892
+            - generic [ref=f1e161]: Call
+            - strong [ref=f1e162]: (914) 242-9892
+          - link "Email info@ecologytreeservice.com" [ref=f1e163] [cursor=pointer]:
+            - /url: mailto:info@ecologytreeservice.com?subject=Estimate%20request%20from%20the%20website
+            - generic [ref=f1e164]: Email
+            - strong [ref=f1e165]: info@ecologytreeservice.com
+          - generic [ref=f1e166]:
+            - generic [ref=f1e167]: Visit / Mail
+            - strong [ref=f1e168]: 215 Croton Lake RoadMount Kisco, NY 10549
+      - text: E
+    - generic [ref=f1e170]:
+      - paragraph [ref=f1e171]: Common questions
+      - heading "Before you call." [level=2] [ref=f1e172]
+      - generic [ref=f1e173]:
+        - group [ref=f1e174]:
+          - generic "How do I request an estimate? +" [ref=f1e175] [cursor=pointer]
+        - group [ref=f1e176]:
+          - generic "Do you work outside Mount Kisco? +" [ref=f1e177] [cursor=pointer]
+        - group [ref=f1e178]:
+          - generic "What should I do after storm damage? +" [ref=f1e179] [cursor=pointer]
+        - group [ref=f1e180]:
+          - generic "Can a tree be pruned instead of removed? +" [ref=f1e181] [cursor=pointer]
+  - contentinfo [ref=f1e182]:
+    - generic [ref=f1e183]:
+      - generic [ref=f1e184]:
+        - link "Ecology Tree Service home" [ref=f1e185] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f1e190]:
+            - strong [ref=f1e191]: Ecology
+            - generic [ref=f1e192]: Tree Service
+        - paragraph [ref=f1e193]: Practical, professional tree care for Mount Kisco and neighboring Westchester County communities.
+      - generic [ref=f1e194]:
+        - heading "Services" [level=2] [ref=f1e195]
+        - link "Tree Pruning" [ref=f1e196] [cursor=pointer]:
+          - /url: /services/tree-pruning
+        - link "Tree Removal" [ref=f1e197] [cursor=pointer]:
+          - /url: /services/tree-removal
+        - link "Storm Damage" [ref=f1e198] [cursor=pointer]:
+          - /url: /services/storm-damage
+        - link "Stump Grinding" [ref=f1e199] [cursor=pointer]:
+          - /url: /services/stump-grinding
+      - generic [ref=f1e200]:
+        - heading "Company" [level=2] [ref=f1e201]
+        - link "About Ecology" [ref=f1e202] [cursor=pointer]:
+          - /url: /about
+        - link "Service Area" [ref=f1e203] [cursor=pointer]:
+          - /url: /service-area
+        - link "Request an Estimate" [ref=f1e204] [cursor=pointer]:
+          - /url: /#contact
+        - link "Privacy" [ref=f1e205] [cursor=pointer]:
+          - /url: /privacy
+      - generic [ref=f1e206]:
+        - heading "Contact" [level=2] [ref=f1e207]
+        - link "(914) 242-9892" [ref=f1e208] [cursor=pointer]:
+          - /url: tel:+19142429892
+        - link "info@ecologytreeservice.com" [ref=f1e209] [cursor=pointer]:
+          - /url: mailto:info@ecologytreeservice.com
+        - generic [ref=f1e210]: 215 Croton Lake RoadMount Kisco, NY 10549
+    - generic [ref=f1e211]:
+      - generic [ref=f1e212]: © 2026 Ecology Tree Service, Inc.
+      - generic [ref=f1e213]: Established in Mount Kisco in 1999.

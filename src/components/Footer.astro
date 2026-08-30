@@ -1,0 +1,36 @@
+---
+import Logo from './Logo.astro';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="shell footer-grid">
+    <div class="footer-intro">
+      <Logo light />
+      <p>Practical, professional tree care for Mount Kisco and neighboring Westchester County communities.</p>
+    </div>
+    <div>
+      <h2>Services</h2>
+      <a href="/services/tree-pruning">Tree Pruning</a>
+      <a href="/services/tree-removal">Tree Removal</a>
+      <a href="/services/storm-damage">Storm Damage</a>
+      <a href="/services/stump-grinding">Stump Grinding</a>
+    </div>
+    <div>
+      <h2>Company</h2>
+      <a href="/about">About Ecology</a>
+      <a href="/service-area">Service Area</a>
+      <a href="/#contact">Request an Estimate</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+    <div class="footer-contact">
+      <h2>Contact</h2>
+      <a href="tel:+19142429892">(914) 242-9892</a>
+      <a href="mailto:info@ecologytreeservice.com">info@ecologytreeservice.com</a>
+      <address>215 Croton Lake Road<br/>Mount Kisco, NY 10549</address>
+    </div>
+  </div>
+  <div class="shell footer-bottom">
+    <span>© {year} Ecology Tree Service, Inc.</span>
+    <span>Established in Mount Kisco in 1999.</span>
+  </div>
+</footer>

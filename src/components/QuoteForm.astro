@@ -3,6 +3,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <form class="quote-form" action="/api/quote" method="post" data-quote-form novalidate>
+  <div data-form-content>
   <div class="form-heading">
     <span>Estimate request</span>
     <strong>Usually takes about two minutes</strong>
@@ -71,6 +72,16 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <p>Submitting this form requests a follow-up. It is not a final quote or scheduled appointment.</p>
   </div>
   <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+  </div>
+
+  <section class="form-confirmation" data-form-confirmation role="status" aria-live="polite" tabindex="-1" hidden>
+    <span class="form-confirmation-mark" aria-hidden="true">✓</span>
+    <p class="section-label">Request received</p>
+    <h2>Thank you.</h2>
+    <p>Your estimate request has been sent to Ecology Tree Service. We’ll follow up using your preferred contact method.</p>
+    <p class="form-redirect">Returning to the homepage in <strong data-redirect-count>5</strong> seconds.</p>
+    <a class="button button-outline" href="/">Return Home Now</a>
+  </section>
 </form>
 
 {turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
@@ -79,6 +90,9 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   const form = document.querySelector<HTMLFormElement>('[data-quote-form]');
   const status = document.querySelector<HTMLElement>('[data-form-status]');
   const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const content = form?.querySelector<HTMLElement>('[data-form-content]');
+  const confirmation = form?.querySelector<HTMLElement>('[data-form-confirmation]');
+  const redirectCount = form?.querySelector<HTMLElement>('[data-redirect-count]');
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -107,10 +121,18 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
       form.reset();
       window.turnstile?.reset();
-      if (status) {
-        status.textContent = 'Thank you. Your request was sent to Ecology Tree Service. We will follow up using your preferred contact method.';
-        status.classList.add('success');
-      }
+      content?.setAttribute('hidden', '');
+      confirmation?.removeAttribute('hidden');
+      form.classList.add('submitted');
+      confirmation?.focus();
+
+      let seconds = 5;
+      const countdown = window.setInterval(() => {
+        seconds -= 1;
+        if (redirectCount) redirectCount.textContent = String(Math.max(seconds, 0));
+        if (seconds <= 0) window.clearInterval(countdown);
+      }, 1000);
+      window.setTimeout(() => window.location.assign('/'), 5000);
     } catch (error) {
       if (status) {
         status.textContent = `${error instanceof Error ? error.message : 'We could not send the request.'} Please call (914) 242-9892 if the problem continues.`;

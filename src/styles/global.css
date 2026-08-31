@@ -193,6 +193,16 @@ p { margin: 0 0 1.35rem; }
 .form-status { margin: 1rem 0 0; font-size: .78rem; font-weight: 700; }
 .form-status.success { padding: .9rem; color: #174d2d; background: #dbe8da; }
 .form-status.error { padding: .9rem; color: #7d291f; background: #f0d9d3; }
+.quote-form.submitted { min-height: 32rem; display: grid; place-items: center; }
+.form-confirmation { max-width: 31rem; margin: auto; text-align: center; }
+.form-confirmation:focus { outline: none; }
+.form-confirmation-mark { width: 4rem; height: 4rem; margin: 0 auto 1.5rem; display: grid; place-items: center; color: var(--white); background: var(--forest); font-size: 2rem; font-weight: 800; }
+.form-confirmation .section-label { margin-bottom: .8rem; }
+.form-confirmation .section-label::before { display: none; }
+.form-confirmation h2 { margin-bottom: 1rem; color: var(--forest-deep); font-size: clamp(2.8rem, 6vw, 4.2rem); }
+.form-confirmation > p:not(.section-label) { color: var(--muted); }
+.form-redirect { padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: .78rem; }
+.form-confirmation .button { margin-top: .35rem; }
 .contact-options { border-top: 1px solid #597263; }
 .contact-option { padding: 1.5rem 0; display: grid; grid-template-columns: 6rem 1fr; align-items: center; border-bottom: 1px solid #597263; text-decoration: none; }
 .contact-option small { color: var(--leaf); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
@@ -339,6 +349,10 @@ p { margin: 0 0 1.35rem; }
   .concerns > div { grid-template-columns: 1fr; }
   .form-submit { align-items: stretch; flex-direction: column; }
   .form-submit .button { width: 100%; }
+  .quote-form.submitted { min-height: 26rem; padding: 2rem 1.25rem; }
+  .form-confirmation-mark { width: 3.5rem; height: 3.5rem; margin-bottom: 1.2rem; }
+  .form-confirmation h2 { font-size: 3rem; }
+  .form-confirmation .button { width: 100%; }
   .faq-list { margin-top: 1.5rem; }
   .faq-list summary { padding-block: 1.15rem; font-size: 1.15rem; }
   .contact-option { grid-template-columns: 1fr; gap: .35rem; }

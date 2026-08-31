@@ -1,4 +1,6 @@
-import { EmailMessage } from "cloudflare:email";
+const CLOUDFLARE_ACCOUNT_ID = "31d06642a08b1bd412f3339cc535179a";
+const QUOTE_DESTINATION = "ecologytree@gmail.com";
+const QUOTE_SENDER = "quotes@ecologytreeservice.com";
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,
@@ -26,7 +28,7 @@ async function verifyTurnstile(token, secret, ip) {
 }
 
 async function handleQuote(request, env) {
-  if (!env.QUOTE_EMAIL || !env.TURNSTILE_SECRET) {
+  if (!env.EMAIL_API_TOKEN || !env.TURNSTILE_SECRET) {
     return json({ message: "The secure form is temporarily unavailable." }, 503);
   }
 
@@ -69,7 +71,6 @@ async function handleQuote(request, env) {
 
   const requestId = crypto.randomUUID().split("-")[0].toUpperCase();
   const subject = headerSafe(`New ${data.service} request — ${data.town} — ${data.name}`, 150);
-  const replyTo = data.email ? `${headerSafe(data.name)} <${headerSafe(data.email, 160)}>` : undefined;
   const body = [
     `NEW WEBSITE ESTIMATE REQUEST · ${requestId}`,
     "",
@@ -94,20 +95,36 @@ async function handleQuote(request, env) {
     `Request ID: ${requestId}`
   ].join("\r\n");
 
-  const headers = [
-    "From: Ecology Website <quotes@ecologytreeservice.com>",
-    "To: ecologytree@gmail.com",
-    `Subject: ${subject}`,
-    ...(replyTo ? [`Reply-To: ${replyTo}`] : []),
-    "MIME-Version: 1.0",
-    "Content-Type: text/plain; charset=UTF-8",
-    "Content-Transfer-Encoding: 8bit",
-    `Message-ID: <quote-${requestId.toLowerCase()}@ecologytreeservice.com>`,
-    "",
-    body
-  ].join("\r\n");
+  const emailPayload = {
+    to: QUOTE_DESTINATION,
+    from: { address: QUOTE_SENDER, name: "Ecology Website" },
+    subject,
+    text: body,
+    ...(data.email ? { reply_to: { address: data.email, name: headerSafe(data.name) } } : {})
+  };
 
-  await env.QUOTE_EMAIL.send(new EmailMessage("quotes@ecologytreeservice.com", "ecologytree@gmail.com", headers));
+  const emailResponse = await fetch(
+    `https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/email/sending/send`,
+    {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${env.EMAIL_API_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(emailPayload)
+    }
+  );
+  const emailResult = await emailResponse.json().catch(() => null);
+  if (!emailResponse.ok || emailResult?.success !== true) {
+    console.error("Cloudflare Email Service rejected a quote notification", {
+      status: emailResponse.status,
+      errors: Array.isArray(emailResult?.errors)
+        ? emailResult.errors.map((error) => ({ code: error.code, message: error.message }))
+        : []
+    });
+    throw new Error("Email Service delivery failed");
+  }
+
   return json({ ok: true, requestId });
 }
 
@@ -125,4 +142,3 @@ export default {
     return env.ASSETS.fetch(request);
   }
 };
-

@@ -17,7 +17,7 @@ export const services = {
     name: 'Tree Removal', eyebrow: 'Controlled tree work',
     description: 'Carefully planned tree removal in Mount Kisco and nearby Westchester County communities. Call Ecology Tree Service at (914) 242-9892.',
     intro: 'When a tree is declining, damaged, poorly located, or no longer viable, removal requires planning for the tree and everything around it.',
-    image: removalImage, alt: 'Crew performing a controlled sectional tree removal on a Westchester street',
+    image: removalImage, alt: 'Tree-service crew clearing grounded branches after a controlled removal on a Westchester property',
     sections: [
       { title: 'The property sets the plan', body: 'Tree size is only one part of removal. Access, buildings, roads, landscape features, utility lines, slope, and the available drop zone all influence the safest practical approach.' },
       { title: 'Controlled, sectional work', body: 'In tighter areas, the tree may need to be dismantled in sections and material lowered under control. The appropriate method is determined from the actual site.', bullets: ['Site and access review', 'Rigging and lowering considerations', 'Work-zone planning', 'Debris cleanup'] },
@@ -28,7 +28,7 @@ export const services = {
     name: 'Storm-Damaged Trees', eyebrow: 'After wind, rain & snow',
     description: 'Help with storm-damaged trees and broken limbs in Mount Kisco and Westchester County. Stay clear of hazards and call (914) 242-9892.',
     intro: 'Broken limbs and shifted trees can remain unstable after the weather clears. Keep people away from the area and address utility hazards first.',
-    image: removalImage, alt: 'Tree-service crew working in a controlled zone after storm damage',
+    image: removalImage, alt: 'Tree-service crew clearing grounded wood from a controlled residential work zone',
     sections: [
       { title: 'Safety before cleanup', body: 'Do not stand below hanging limbs, walk beneath a split canopy, or approach a tree in contact with wires. Contact the utility or emergency services first when power lines are involved.' },
       { title: 'What to tell us', body: 'Share the property address, what failed, whether a building or driveway is affected, and whether utilities are nearby. Photos can help only when they can be taken from a safe location.', bullets: ['Hanging or broken limbs', 'Split stems and uprooted trees', 'Blocked access', 'Damage near structures'] },

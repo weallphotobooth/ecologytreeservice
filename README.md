@@ -17,6 +17,19 @@ npm run build
 
 The static site is written to `dist/` for deployment to Cloudflare Pages.
 
+## Deployment
+
+Pushes to `main` run `.github/workflows/deploy-cloudflare-pages.yml`, build the
+site with Node.js 22, and deploy `dist/` to the isolated Cloudflare Pages project
+`ecologytreeservice-site`.
+
+- Production: https://ecologytreeservice.com
+- Pages hostname: https://ecologytreeservice-site.pages.dev
+- `www` redirects permanently to the apex domain through a zone-scoped
+  Cloudflare Redirect Rule.
+- The repository secret `CLOUDFLARE_API_TOKEN` has Pages-only write access and
+  expires in August 2027.
+
 ## Public business details
 
 - Phone: (914) 242-9892

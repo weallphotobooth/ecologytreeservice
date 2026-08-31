@@ -55,8 +55,6 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     </div>
   </fieldset>
 
-  <label class="honey" aria-hidden="true">Company website<input type="text" name="company_site" tabindex="-1" autocomplete="off" /></label>
-
   {turnstileSiteKey ? (
     <div class="turnstile-wrap">
       <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-action="quote_request" data-theme="light"></div>
@@ -78,7 +76,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <span class="form-confirmation-mark" aria-hidden="true">✓</span>
     <p class="section-label">Request received</p>
     <h2>Thank you.</h2>
-    <p>Your estimate request has been sent to Ecology Tree Service. We’ll follow up using your preferred contact method.</p>
+    <p data-confirmation-copy>Your estimate request has been received by Ecology Tree Service. We’ll follow up using your preferred contact method.</p>
     <p class="form-redirect">Returning to the homepage in <strong data-redirect-count>5</strong> seconds.</p>
     <a class="button button-outline" href="/">Return Home Now</a>
   </section>
@@ -92,6 +90,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const content = form?.querySelector<HTMLElement>('[data-form-content]');
   const confirmation = form?.querySelector<HTMLElement>('[data-form-confirmation]');
+  const confirmationCopy = form?.querySelector<HTMLElement>('[data-confirmation-copy]');
   const redirectCount = form?.querySelector<HTMLElement>('[data-redirect-count]');
 
   form?.addEventListener('submit', async (event) => {
@@ -116,11 +115,14 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
       });
-      const result = await response.json() as { message?: string };
+      const result = await response.json() as { message?: string; requestId?: string; notificationDelayed?: boolean };
       if (!response.ok) throw new Error(result.message || 'We could not send the request.');
 
       form.reset();
       window.turnstile?.reset();
+      if (confirmationCopy && result.notificationDelayed) {
+        confirmationCopy.textContent = `Your request ${result.requestId ? `(${result.requestId}) ` : ''}was saved securely. The email alert is delayed, but Ecology Tree Service can still retrieve it.`;
+      }
       content?.setAttribute('hidden', '');
       confirmation?.removeAttribute('hidden');
       form.classList.add('submitted');
@@ -134,6 +136,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       }, 1000);
       window.setTimeout(() => window.location.assign('/'), 5000);
     } catch (error) {
+      window.turnstile?.reset();
       if (status) {
         status.textContent = `${error instanceof Error ? error.message : 'We could not send the request.'} Please call (914) 242-9892 if the problem continues.`;
         status.classList.add('error');

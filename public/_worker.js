@@ -14,6 +14,7 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), {
 const clean = (value, max = 200) => String(value ?? "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, max);
 const headerSafe = (value, max = 120) => clean(value, max).replace(/[\r\n]+/g, " ");
 const list = (value) => Array.isArray(value) ? value.map((item) => clean(item, 80)).filter(Boolean) : [];
+const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
 async function verifyTurnstile(token, secret, ip) {
   const body = new FormData();
@@ -27,8 +28,42 @@ async function verifyTurnstile(token, secret, ip) {
   return result.success === true && result.action === "quote_request";
 }
 
+async function sendQuoteEmail(emailPayload, token) {
+  let lastFailure = { status: 0, detail: "Email service unavailable" };
+
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      const response = await fetch(
+        `https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/email/sending/send`,
+        {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(emailPayload)
+        }
+      );
+      const result = await response.json().catch(() => null);
+      if (response.ok && result?.success === true) return { ok: true };
+
+      const detail = Array.isArray(result?.errors)
+        ? result.errors.map((error) => clean(`${error.code ?? ""} ${error.message ?? ""}`, 180)).filter(Boolean).join("; ")
+        : `HTTP ${response.status}`;
+      lastFailure = { status: response.status, detail: detail || `HTTP ${response.status}` };
+      if (response.status !== 429 && response.status < 500) break;
+    } catch (error) {
+      lastFailure = { status: 0, detail: clean(error instanceof Error ? error.message : "Network error", 180) };
+    }
+
+    if (attempt === 1) await wait(250);
+  }
+
+  return { ok: false, ...lastFailure };
+}
+
 async function handleQuote(request, env) {
-  if (!env.EMAIL_API_TOKEN || !env.TURNSTILE_SECRET) {
+  if (!env.QUOTE_DB || !env.TURNSTILE_SECRET) {
     return json({ message: "The secure form is temporarily unavailable." }, 503);
   }
 
@@ -38,8 +73,6 @@ async function handleQuote(request, env) {
   let input;
   try { input = await request.json(); }
   catch { return json({ message: "Please check the form and try again." }, 400); }
-
-  if (clean(input.company_site, 100)) return json({ ok: true });
 
   const data = {
     service: clean(input.service, 80),
@@ -69,7 +102,37 @@ async function handleQuote(request, env) {
   const verified = await verifyTurnstile(token, env.TURNSTILE_SECRET, request.headers.get("CF-Connecting-IP"));
   if (!verified) return json({ message: "Secure verification expired. Please try again." }, 403);
 
-  const requestId = crypto.randomUUID().split("-")[0].toUpperCase();
+  const recordId = crypto.randomUUID();
+  const requestId = recordId.split("-")[0].toUpperCase();
+  const createdAt = new Date().toISOString();
+
+  await env.QUOTE_DB.prepare(`
+    INSERT INTO quote_requests (
+      id, request_id, created_at, service, address, town, tree_count, urgency,
+      access, concerns_json, details, name, phone, email, call_time,
+      contact_method, email_status, source_host, user_agent
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?)
+  `).bind(
+    recordId,
+    requestId,
+    createdAt,
+    data.service,
+    data.address,
+    data.town,
+    data.treeCount,
+    data.urgency,
+    data.access,
+    JSON.stringify(data.concerns),
+    data.details,
+    data.name,
+    data.phone,
+    data.email,
+    data.callTime,
+    data.contactMethod,
+    clean(new URL(request.url).hostname, 120),
+    clean(request.headers.get("User-Agent"), 300)
+  ).run();
+
   const subject = headerSafe(`New ${data.service} request — ${data.town} — ${data.name}`, 150);
   const body = [
     `NEW WEBSITE ESTIMATE REQUEST · ${requestId}`,
@@ -91,7 +154,7 @@ async function handleQuote(request, env) {
     `Preferred contact: ${data.contactMethod}`,
     `Best time to call: ${data.callTime}`,
     "",
-    `Submitted: ${new Date().toISOString()}`,
+    `Submitted: ${createdAt}`,
     `Request ID: ${requestId}`
   ].join("\r\n");
 
@@ -103,27 +166,30 @@ async function handleQuote(request, env) {
     ...(data.email ? { reply_to: { address: data.email, name: headerSafe(data.name) } } : {})
   };
 
-  const emailResponse = await fetch(
-    `https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/email/sending/send`,
-    {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${env.EMAIL_API_TOKEN}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(emailPayload)
-    }
-  );
-  const emailResult = await emailResponse.json().catch(() => null);
-  if (!emailResponse.ok || emailResult?.success !== true) {
-    console.error("Cloudflare Email Service rejected a quote notification", {
-      status: emailResponse.status,
-      errors: Array.isArray(emailResult?.errors)
-        ? emailResult.errors.map((error) => ({ code: error.code, message: error.message }))
-        : []
+  const delivery = env.EMAIL_API_TOKEN
+    ? await sendQuoteEmail(emailPayload, env.EMAIL_API_TOKEN)
+    : { ok: false, status: 0, detail: "Email API token is unavailable" };
+
+  if (!delivery.ok) {
+    await env.QUOTE_DB.prepare(`
+      UPDATE quote_requests
+      SET email_status = 'failed', email_error = ?
+      WHERE id = ?
+    `).bind(clean(delivery.detail, 300), recordId).run();
+    console.error("Quote saved but email notification failed", {
+      requestId,
+      status: delivery.status
     });
-    throw new Error("Email Service delivery failed");
+    return json({ ok: true, requestId, notificationDelayed: true }, 202);
   }
+
+  await env.QUOTE_DB.prepare(`
+    UPDATE quote_requests
+    SET email_status = 'sent', email_sent_at = ?
+    WHERE id = ?
+  `).bind(new Date().toISOString(), recordId).run();
+
+  console.log("Quote saved and notification sent", { requestId });
 
   return json({ ok: true, requestId });
 }
@@ -135,8 +201,10 @@ export default {
       if (request.method !== "POST") return json({ message: "Method not allowed." }, 405);
       try { return await handleQuote(request, env); }
       catch (error) {
-        console.error("Quote request failed", error);
-        return json({ message: "We could not send the request right now." }, 500);
+        console.error("Quote request failed", {
+          message: error instanceof Error ? error.message : "Unknown error"
+        });
+        return json({ message: "We could not save the request right now." }, 500);
       }
     }
     return env.ASSETS.fetch(request);

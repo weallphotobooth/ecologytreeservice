@@ -22,7 +22,10 @@ development, copy `.env.example` to `.env` and supply the public Turnstile site
 key. Production reads `PUBLIC_TURNSTILE_SITE_KEY` from a GitHub Actions variable.
 The isolated Pages project stores encrypted `TURNSTILE_SECRET` and
 `EMAIL_API_TOKEN` values for server-side verification and Cloudflare Email
-Service delivery.
+Service delivery. Its `QUOTE_DB` binding points only to the dedicated D1
+database `ecologytreeservice-quotes` (`05341655-f003-4c2c-8fbc-f53df1385691`).
+Validated estimate requests are saved there before the email notification is
+attempted; each record tracks whether that notification was sent or failed.
 
 ## Deployment
 

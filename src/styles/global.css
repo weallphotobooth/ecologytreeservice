@@ -182,7 +182,6 @@ p { margin: 0 0 1.35rem; }
 .concerns label, .consent { display: flex; align-items: flex-start; gap: .55rem; color: #394139; font-size: .76rem; cursor: pointer; }
 .concerns input, .consent input { width: 1rem; height: 1rem; flex: 0 0 auto; margin-top: .16rem; accent-color: var(--forest); }
 .safety-note { margin: 1rem 0 0; padding: .85rem 1rem; color: #61351f; background: #efe0d4; border-left: 3px solid var(--clay); font-size: .74rem; line-height: 1.5; }
-.honey { width: 1px; height: 1px; position: absolute; left: -9999px; overflow: hidden; }
 .turnstile-wrap { margin-top: 1.5rem; min-height: 65px; }
 .form-setup { margin: 1.5rem 0 0; padding: 1rem; color: #61351f; background: #efe0d4; font-size: .78rem; }
 .consent { margin-top: 1rem; }

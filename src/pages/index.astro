@@ -1,15 +1,19 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import QuoteForm from '../components/QuoteForm.astro';
 import heroImage from '../assets/hero-arborist-v2.png';
 import removalImage from '../assets/tree-removal.png';
 import careImage from '../assets/tree-care.png';
+import pruningCardImage from '../assets/service-card-pruning.png';
+import removalCardImage from '../assets/service-card-removal.png';
+import stormCardImage from '../assets/service-card-storm.png';
+import stumpCardImage from '../assets/service-card-stump.png';
+import pruningFeatureImage from '../assets/pruning-feature.png';
 
 const faq = [
   {
     question: 'How do I request an estimate?',
-    answer: 'Call (914) 242-9892 or email a short description of the tree work, the property address, and the best way to reach you. Photos are helpful when they can be taken safely.'
+    answer: 'Use the dedicated estimate request page or call (914) 242-9892. Share the tree work, property address, access, timing, and the best way to reach you.'
   },
   {
     question: 'Do you work outside Mount Kisco?',
@@ -61,7 +65,7 @@ const faqSchema = {
         <p class="lead">Thoughtful pruning, careful removals, and dependable tree work for homes, properties, and the community around Mount Kisco.</p>
         <div class="hero-actions">
           <a class="button" href="tel:+19142429892">Call (914) 242-9892</a>
-          <a class="button button-secondary" href="#contact">Request an Estimate</a>
+          <a class="button button-secondary" href="/estimate">Request an Estimate</a>
         </div>
       </div>
       <div class="hero-note" aria-label="Established in 1999">
@@ -108,19 +112,19 @@ const faqSchema = {
       </div>
       <div class="service-grid" data-reveal>
         <a class="service-card" href="/services/tree-pruning">
-          <span class="service-card-media"><Image src={careImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
+          <span class="service-card-media"><Image src={pruningCardImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
           <span class="number">01 / PRUNING</span><h3>Tree Pruning</h3><p>Selective work to improve clearance, structure, and the way mature trees fit the property.</p>
         </a>
         <a class="service-card" href="/services/tree-removal">
-          <span class="service-card-media"><Image src={removalImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
+          <span class="service-card-media"><Image src={removalCardImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
           <span class="number">02 / REMOVAL</span><h3>Tree Removal</h3><p>Controlled removal planning for trees that are declining, damaged, poorly located, or no longer viable.</p>
         </a>
         <a class="service-card" href="/services/storm-damage">
-          <span class="service-card-media service-card-media-storm"><Image src={removalImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
+          <span class="service-card-media service-card-media-storm"><Image src={stormCardImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
           <span class="number">03 / STORM</span><h3>Storm Damage</h3><p>Response for broken limbs and storm-affected trees, with safety and site conditions considered first.</p>
         </a>
         <a class="service-card" href="/services/stump-grinding">
-          <span class="service-card-media service-card-media-stump"><Image src={careImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
+          <span class="service-card-media service-card-media-stump"><Image src={stumpCardImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
           <span class="number">04 / STUMPS</span><h3>Stump Grinding</h3><p>Practical stump removal to clear usable space and help prepare the area for what comes next.</p>
         </a>
       </div>
@@ -159,7 +163,7 @@ const faqSchema = {
       <a class="text-link" href="/services/tree-pruning">Explore tree pruning</a>
     </div>
     <div class="feature-media">
-      <Image src={careImage} alt="Arborist inspecting the trunk and pruning points of a mature maple" widths={[640, 900, 1200]} sizes="(max-width: 900px) 100vw, 53vw" format="webp" quality={82} loading="lazy" />
+      <Image src={pruningFeatureImage} alt="Two tree-care professionals reviewing the branch structure of a mature tree" widths={[640, 900, 1200]} sizes="(max-width: 900px) 100vw, 53vw" format="webp" quality={82} loading="lazy" />
     </div>
   </section>
 
@@ -190,19 +194,16 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="section quote estimate-section" id="contact">
-    <div class="shell estimate-grid">
-      <div class="estimate-copy" data-reveal>
-        <p class="eyebrow">Request an estimate</p>
-        <h2>Tell us what the property needs.</h2>
-        <p class="lead">A few practical details help us understand the tree, access, timing, and the best way to follow up.</p>
-        <div class="estimate-direct">
-          <span>Prefer to talk?</span>
-          <a href="tel:+19142429892">Call (914) 242-9892</a>
-          <small>For trees touching utility lines or an immediate danger, contact the utility or emergency services first.</small>
-        </div>
+  <section class="section quote home-estimate" id="contact">
+    <div class="narrow home-estimate-inner" data-reveal>
+      <p class="eyebrow">Request an estimate</p>
+      <h2>Start with a few details.</h2>
+      <p class="lead">Tell us about the tree, property access, and timing on a focused two-minute request page. We’ll use it to prepare for the conversation.</p>
+      <div class="hero-actions">
+        <a class="button" href="/estimate">Open Estimate Request</a>
+        <a class="button button-secondary" href="tel:+19142429892">Call (914) 242-9892</a>
       </div>
-      <QuoteForm />
+      <small>For trees touching utility lines or an immediate danger, contact the utility or emergency services first.</small>
     </div>
   </section>
 

@@ -137,8 +137,18 @@ p { margin: 0 0 1.35rem; }
 .quote::after { content: "E"; position: absolute; right: -2rem; bottom: -9rem; color: rgb(255 255 255 / .035); font-family: var(--font-display); font-size: 34rem; line-height: 1; }
 .quote-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(3rem, 8vw, 8rem); align-items: start; }
 .quote h2 { margin: .9rem 0 1.4rem; }
+.home-estimate { text-align: center; }
+.home-estimate-inner { position: relative; z-index: 1; }
+.home-estimate h2 { margin: .8rem 0 1.25rem; }
+.home-estimate .lead { max-width: 680px; margin-inline: auto; }
+.home-estimate .hero-actions { justify-content: center; margin-top: 2rem; }
+.home-estimate small { max-width: 650px; margin: 1.5rem auto 0; display: block; color: #b9c6bc; }
 .estimate-grid { position: relative; z-index: 1; display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(3rem, 7vw, 7rem); align-items: start; }
 .estimate-copy { position: sticky; top: 2rem; }
+.estimate-page { padding-top: clamp(4rem, 8vw, 7rem); }
+.estimate-page h1 { margin: .9rem 0 1.5rem; font-size: clamp(3.25rem, 6.5vw, 6.2rem); }
+.estimate-page .breadcrumb { margin-bottom: 3rem; }
+.estimate-eyebrow { margin-top: 0; }
 .estimate-direct { margin-top: 3rem; padding-top: 1.5rem; display: grid; gap: .35rem; border-top: 1px solid #597263; }
 .estimate-direct span { color: var(--leaf); font-size: .66rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .estimate-direct a { width: fit-content; color: var(--white); font-family: var(--font-display); font-size: 1.65rem; text-decoration: none; }
@@ -305,6 +315,12 @@ p { margin: 0 0 1.35rem; }
   .map-pin { width: 7rem; height: 7rem; border-width: 10px; }
   .area-list { margin: 1.4rem 0; font-size: .86rem; }
   .estimate-section { padding-top: 3.5rem; }
+  .home-estimate { text-align: left; }
+  .home-estimate .hero-actions { grid-template-columns: 1fr; }
+  .home-estimate .lead { margin-inline: 0; }
+  .estimate-page { padding-top: 3rem; }
+  .estimate-page .breadcrumb { margin-bottom: 2rem; }
+  .estimate-page h1 { font-size: clamp(3rem, 15vw, 4.3rem); }
   .estimate-grid { width: 100%; gap: 2rem; }
   .estimate-copy { padding-inline: 1rem; }
   .estimate-copy h2 { margin-top: .8rem; }

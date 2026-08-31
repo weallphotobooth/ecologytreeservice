@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+---
+<BaseLayout
+  title="Request a Tree Service Estimate | Ecology Tree Service"
+  description="Request a tree pruning, removal, storm-damage or stump-grinding estimate from Ecology Tree Service in Mount Kisco, New York."
+>
+  <section class="section quote estimate-page">
+    <div class="shell estimate-grid">
+      <div class="estimate-copy">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>Estimate</span></nav>
+        <p class="eyebrow estimate-eyebrow">Request an estimate</p>
+        <h1>Tell us what the property needs.</h1>
+        <p class="lead">A few practical details help us understand the tree, access, timing, and the best way to follow up.</p>
+        <div class="estimate-direct">
+          <span>Prefer to talk?</span>
+          <a href="tel:+19142429892">Call (914) 242-9892</a>
+          <small>For trees touching utility lines or an immediate danger, stay clear and contact the utility or emergency services first.</small>
+        </div>
+      </div>
+      <QuoteForm />
+    </div>
+  </section>
+</BaseLayout>

@@ -75,6 +75,10 @@ const localBusiness = {
     <Header />
     <main id="main"><slot /></main>
     <Footer />
+    <nav class="mobile-actions" aria-label="Quick contact">
+      <a href="tel:+19142429892"><small>Talk to the team</small><strong>Call now</strong></a>
+      <a href="/#contact"><small>Describe the job</small><strong>Request quote</strong></a>
+    </nav>
     <script>
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduceMotion) {

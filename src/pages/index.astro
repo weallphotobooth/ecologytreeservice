@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import QuoteForm from '../components/QuoteForm.astro';
 import heroImage from '../assets/hero-arborist-v2.png';
 import removalImage from '../assets/tree-removal.png';
 import careImage from '../assets/tree-care.png';
@@ -78,11 +79,14 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="section section-white">
+  <section class="section section-white intro-section">
     <div class="shell intro-grid">
       <div data-reveal>
         <p class="section-label">Tree work with context</p>
         <h2>Your trees shape the whole property.</h2>
+      </div>
+      <div class="mobile-intro-media">
+        <Image src={careImage} alt="Arborist examining a mature tree on a wooded property" widths={[420, 720]} sizes="100vw" format="webp" quality={78} loading="lazy" />
       </div>
       <div class="intro-copy" data-reveal>
         <p class="lead">Good tree work considers more than the branch in front of you. It considers the tree’s structure, the surrounding landscape, nearby buildings, access, and what the property needs next.</p>
@@ -103,10 +107,22 @@ const faqSchema = {
         <p class="lead">Start with the tree, the site, and your priorities. We’ll discuss the right scope for the property.</p>
       </div>
       <div class="service-grid" data-reveal>
-        <a class="service-card" href="/services/tree-pruning"><span class="number">01 / PRUNING</span><h3>Tree Pruning</h3><p>Selective work to improve clearance, structure, and the way mature trees fit the property.</p></a>
-        <a class="service-card" href="/services/tree-removal"><span class="number">02 / REMOVAL</span><h3>Tree Removal</h3><p>Controlled removal planning for trees that are declining, damaged, poorly located, or no longer viable.</p></a>
-        <a class="service-card" href="/services/storm-damage"><span class="number">03 / STORM</span><h3>Storm Damage</h3><p>Response for broken limbs and storm-affected trees, with safety and site conditions considered first.</p></a>
-        <a class="service-card" href="/services/stump-grinding"><span class="number">04 / STUMPS</span><h3>Stump Grinding</h3><p>Practical stump removal to clear usable space and help prepare the area for what comes next.</p></a>
+        <a class="service-card" href="/services/tree-pruning">
+          <span class="service-card-media"><Image src={careImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
+          <span class="number">01 / PRUNING</span><h3>Tree Pruning</h3><p>Selective work to improve clearance, structure, and the way mature trees fit the property.</p>
+        </a>
+        <a class="service-card" href="/services/tree-removal">
+          <span class="service-card-media"><Image src={removalImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
+          <span class="number">02 / REMOVAL</span><h3>Tree Removal</h3><p>Controlled removal planning for trees that are declining, damaged, poorly located, or no longer viable.</p>
+        </a>
+        <a class="service-card" href="/services/storm-damage">
+          <span class="service-card-media service-card-media-storm"><Image src={removalImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
+          <span class="number">03 / STORM</span><h3>Storm Damage</h3><p>Response for broken limbs and storm-affected trees, with safety and site conditions considered first.</p>
+        </a>
+        <a class="service-card" href="/services/stump-grinding">
+          <span class="service-card-media service-card-media-stump"><Image src={careImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
+          <span class="number">04 / STUMPS</span><h3>Stump Grinding</h3><p>Practical stump removal to clear usable space and help prepare the area for what comes next.</p>
+        </a>
       </div>
     </div>
   </section>
@@ -174,18 +190,19 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="section quote" id="contact">
-    <div class="shell quote-grid">
-      <div data-reveal>
-        <p class="eyebrow">Start a conversation</p>
-        <h2>Let’s take a look at the tree.</h2>
-        <p class="lead">Tell us where the property is and what you’re concerned about. We’ll follow up to discuss the next step.</p>
+  <section class="section quote estimate-section" id="contact">
+    <div class="shell estimate-grid">
+      <div class="estimate-copy" data-reveal>
+        <p class="eyebrow">Request an estimate</p>
+        <h2>Tell us what the property needs.</h2>
+        <p class="lead">A few practical details help us understand the tree, access, timing, and the best way to follow up.</p>
+        <div class="estimate-direct">
+          <span>Prefer to talk?</span>
+          <a href="tel:+19142429892">Call (914) 242-9892</a>
+          <small>For trees touching utility lines or an immediate danger, contact the utility or emergency services first.</small>
+        </div>
       </div>
-      <div class="contact-options" data-reveal>
-        <a class="contact-option" href="tel:+19142429892"><small>Call</small><strong>(914) 242-9892</strong></a>
-        <a class="contact-option" href="mailto:info@ecologytreeservice.com?subject=Estimate%20request%20from%20the%20website"><small>Email</small><strong>info@ecologytreeservice.com</strong></a>
-        <div class="contact-option"><small>Visit / Mail</small><strong>215 Croton Lake Road<br/>Mount Kisco, NY 10549</strong></div>
-      </div>
+      <QuoteForm />
     </div>
   </section>
 

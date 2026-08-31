@@ -1,0 +1,123 @@
+---
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<form class="quote-form" action="/api/quote" method="post" data-quote-form novalidate>
+  <div class="form-heading">
+    <span>Estimate request</span>
+    <strong>Usually takes about two minutes</strong>
+  </div>
+
+  <fieldset>
+    <legend>What kind of tree work do you need?</legend>
+    <div class="job-options">
+      <label><input type="radio" name="service" value="Tree pruning" required /><span>Tree pruning<small>Clearance, deadwood, canopy concerns</small></span></label>
+      <label><input type="radio" name="service" value="Tree removal" /><span>Tree removal<small>Declining, damaged, or poorly located trees</small></span></label>
+      <label><input type="radio" name="service" value="Storm damage" /><span>Storm damage<small>Broken limbs or a newly affected tree</small></span></label>
+      <label><input type="radio" name="service" value="Stump grinding" /><span>Stump grinding<small>Clear the space after a removal</small></span></label>
+      <label><input type="radio" name="service" value="Not sure / multiple services" /><span>Not sure / several needs<small>We can help identify the right scope</small></span></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Tell us about the property</legend>
+    <div class="form-grid">
+      <label class="field field-wide"><span>Property address</span><input type="text" name="address" autocomplete="street-address" maxlength="160" required /></label>
+      <label class="field"><span>Town</span><input type="text" name="town" autocomplete="address-level2" maxlength="80" required /></label>
+      <label class="field"><span>Number of trees</span><select name="tree_count" required><option value="">Select</option><option>1</option><option>2–3</option><option>4 or more</option><option>Not sure</option></select></label>
+      <label class="field"><span>Timing</span><select name="urgency" required><option value="">Select</option><option>Planning ahead</option><option>Within the next few weeks</option><option>As soon as scheduling allows</option><option>Recent storm damage</option></select></label>
+      <label class="field"><span>Access</span><select name="access"><option>Open yard / driveway access</option><option>Fence or narrow gate</option><option>Sloped or difficult access</option><option>Not sure</option></select></label>
+    </div>
+
+    <div class="concerns">
+      <span>Anything close to the tree? <small>Select all that apply</small></span>
+      <div>
+        <label><input type="checkbox" name="concerns" value="House or structure" />House / structure</label>
+        <label><input type="checkbox" name="concerns" value="Driveway or road" />Driveway / road</label>
+        <label><input type="checkbox" name="concerns" value="Fence or landscaping" />Fence / landscaping</label>
+        <label><input type="checkbox" name="concerns" value="Utility lines" />Utility lines</label>
+      </div>
+    </div>
+
+    <label class="field"><span>Describe what you see and what you would like done</span><textarea name="details" rows="5" maxlength="1600" placeholder="For example: one large branch over the garage, several dead limbs, or a stump beside the driveway…" required></textarea></label>
+    <p class="safety-note"><strong>Tree touching a power line?</strong> Stay clear and contact the utility or emergency services first.</p>
+  </fieldset>
+
+  <fieldset>
+    <legend>How should we reach you?</legend>
+    <div class="form-grid">
+      <label class="field"><span>Name</span><input type="text" name="name" autocomplete="name" maxlength="100" required /></label>
+      <label class="field"><span>Phone</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="30" required /></label>
+      <label class="field field-wide"><span>Email <small>Optional</small></span><input type="email" name="email" autocomplete="email" maxlength="160" /></label>
+      <label class="field"><span>Best time to call</span><select name="call_time"><option>Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
+      <label class="field"><span>Preferred contact</span><select name="contact_method"><option>Phone call</option><option>Text message</option><option>Email</option></select></label>
+    </div>
+  </fieldset>
+
+  <label class="honey" aria-hidden="true">Company website<input type="text" name="company_site" tabindex="-1" autocomplete="off" /></label>
+
+  {turnstileSiteKey ? (
+    <div class="turnstile-wrap">
+      <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-action="quote_request" data-theme="light"></div>
+    </div>
+  ) : (
+    <p class="form-setup">Secure form verification is being configured. Please call while setup finishes.</p>
+  )}
+
+  <label class="consent"><input type="checkbox" name="consent" value="yes" required /><span>I agree that Ecology Tree Service may contact me about this request.</span></label>
+
+  <div class="form-submit">
+    <button class="button" type="submit" disabled={!turnstileSiteKey}>Send Estimate Request</button>
+    <p>Submitting this form requests a follow-up. It is not a final quote or scheduled appointment.</p>
+  </div>
+  <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+</form>
+
+{turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-quote-form]');
+  const status = document.querySelector<HTMLElement>('[data-form-status]');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    status?.classList.remove('success', 'error');
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      if (status) status.textContent = 'Please complete the required fields above.';
+      return;
+    }
+
+    const data = new FormData(form);
+    const payload: Record<string, FormDataEntryValue | FormDataEntryValue[]> = Object.fromEntries(data.entries());
+    payload.concerns = data.getAll('concerns');
+
+    if (submit) { submit.disabled = true; submit.textContent = 'Sending…'; }
+
+    try {
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json() as { message?: string };
+      if (!response.ok) throw new Error(result.message || 'We could not send the request.');
+
+      form.reset();
+      window.turnstile?.reset();
+      if (status) {
+        status.textContent = 'Thank you. Your request was sent to Ecology Tree Service. We will follow up using your preferred contact method.';
+        status.classList.add('success');
+      }
+    } catch (error) {
+      if (status) {
+        status.textContent = `${error instanceof Error ? error.message : 'We could not send the request.'} Please call (914) 242-9892 if the problem continues.`;
+        status.classList.add('error');
+      }
+    } finally {
+      if (submit) { submit.disabled = false; submit.textContent = 'Send Estimate Request'; }
+    }
+  });
+</script>

@@ -1,6 +1,12 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ecology-tree-service",
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ecologytreeservice-site",
   "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-08-30"
+  "compatibility_date": "2026-08-30",
+  "send_email": [
+    {
+      "name": "QUOTE_EMAIL",
+      "destination_address": "ecologytree@gmail.com"
+    }
+  ]
 }

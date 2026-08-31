@@ -1,24 +1,31 @@
 ---
+import { Image } from 'astro:assets';
+import ecologyLogo from '../assets/ecology-logo.png';
+
 interface Props { light?: boolean; }
 const { light = false } = Astro.props;
 ---
-<a class:list={["brand", { light }]} href="/">
-  <svg class="brand-mark" viewBox="0 0 54 54" aria-hidden="true">
-    <path d="M27 3 5 15v24l22 12 22-12V15L27 3Z" fill="none" stroke="currentColor" stroke-width="2"/>
-    <path d="M26 42V17m0 5-8-5m8 13 10-7m-10 12-7 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
-    <path d="M28 11c7 0 11 4 11 10-7 1-11-3-11-10Z" fill="currentColor"/>
-  </svg>
-  <span>
-    <strong>Ecology</strong>
-    <small>Tree Service</small>
-  </span>
+<a class:list={["brand", { light }]} href="/" aria-label="Ecology Tree Service, Inc. home">
+  <Image
+    class="brand-logo"
+    src={ecologyLogo}
+    alt="Ecology Tree Service, Inc."
+    widths={[64, 128, 256]}
+    sizes={light ? "128px" : "64px"}
+    format="webp"
+    quality={88}
+    loading={light ? "lazy" : "eager"}
+    decoding="async"
+  />
 </a>
 
 <style>
-  .brand { color: var(--ink); display: inline-flex; align-items: center; gap: .72rem; text-decoration: none; line-height: 1; }
-  .brand.light { color: var(--paper); }
-  .brand-mark { width: 2.9rem; height: 2.9rem; flex: 0 0 auto; }
-  .brand span { display: grid; gap: .18rem; }
-  .brand strong { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
-  .brand small { font-size: .64rem; font-weight: 800; letter-spacing: .21em; text-transform: uppercase; }
+  .brand { display: inline-flex; align-items: center; flex: 0 0 auto; text-decoration: none; }
+  .brand-logo { width: 4rem; height: auto; }
+  .brand.light { padding: .7rem; background: var(--paper); }
+  .brand.light .brand-logo { width: 8rem; }
+
+  @media (max-width: 640px) {
+    .brand-logo { width: 3.55rem; }
+  }
 </style>

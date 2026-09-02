@@ -18,6 +18,7 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
+const showFullAddress = Astro.url.pathname.replace(/\/+$/, '') === '/about';
 const localBusiness = {
   '@context': 'https://schema.org',
   '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
@@ -25,21 +26,26 @@ const localBusiness = {
   name: 'Ecology Tree Service, Inc.',
   alternateName: 'Ecology Tree Care',
   url: 'https://ecologytreeservice.com',
-  telephone: '+1-914-242-9892',
+  telephone: ['+1-914-242-9892', '+1-914-760-9892'],
   email: 'info@ecologytreeservice.com',
-  foundingDate: '1999-05-17',
+  foundingDate: '1996',
   image: 'https://ecologytreeservice.com/og-image.jpg',
-  address: {
+  address: showFullAddress ? {
     '@type': 'PostalAddress',
     streetAddress: '215 Croton Lake Road',
     addressLocality: 'Mount Kisco',
     addressRegion: 'NY',
     postalCode: '10549',
     addressCountry: 'US'
+  } : {
+    '@type': 'PostalAddress',
+    addressLocality: 'Mount Kisco',
+    addressRegion: 'NY',
+    addressCountry: 'US'
   },
   areaServed: [
-    { '@type': 'City', name: 'Mount Kisco' },
-    { '@type': 'AdministrativeArea', name: 'Westchester County' }
+    { '@type': 'AdministrativeArea', name: 'Westchester County, New York' },
+    { '@type': 'AdministrativeArea', name: 'Lower Connecticut' }
   ],
   priceRange: '$$'
 };
@@ -74,9 +80,9 @@ const localBusiness = {
     <a class="skip-link" href="#main">Skip to content</a>
     <Header />
     <main id="main"><slot /></main>
-    <Footer />
+    <Footer showFullAddress={showFullAddress} />
     <nav class="mobile-actions" aria-label="Quick contact">
-      <a href="tel:+19142429892"><small>Talk to the team</small><strong>Call now</strong></a>
+      <a href="tel:+19147609892"><small>Talk to the team</small><strong>Call cell</strong></a>
       <a href="/estimate"><small>Describe the job</small><strong>Request quote</strong></a>
     </nav>
     <script>

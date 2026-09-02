@@ -60,6 +60,8 @@ p { margin: 0 0 1.35rem; }
 .utility { color: #dbe4dc; background: var(--forest-deep); font-size: .72rem; letter-spacing: .04em; }
 .utility-inner { min-height: 2.25rem; display: flex; align-items: center; justify-content: space-between; }
 .utility a { text-decoration: none; }
+.utility-phones { display: flex; align-items: center; gap: 1rem; }
+.utility-phones a + a { padding-left: 1rem; border-left: 1px solid rgb(255 255 255 / .24); }
 .site-header { position: relative; z-index: 30; background: rgb(244 241 232 / .96); border-bottom: 1px solid rgb(23 32 25 / .12); }
 .nav-wrap { min-height: 5.8rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
 .nav { display: flex; align-items: center; gap: clamp(1.1rem, 2.2vw, 2rem); }
@@ -109,6 +111,14 @@ p { margin: 0 0 1.35rem; }
 .service-card p { max-width: 32rem; margin: 0; color: #bfcac2; }
 .service-card:hover p, .service-card:hover .number { color: var(--forest-deep); }
 .service-card-media { display: none; }
+.service-card-wide { min-height: 24rem; padding: 0; display: grid; grid-column: 1 / -1; grid-template-columns: 1.15fr .85fr; grid-template-rows: auto 1fr auto; }
+.service-card-wide .service-card-media { min-height: 24rem; height: 100%; display: block; grid-row: 1 / 4; overflow: hidden; }
+.service-card-wide .service-card-media picture, .service-card-wide .service-card-media img { width: 100%; height: 100%; }
+.service-card-wide .service-card-media img { object-fit: cover; object-position: 56% center; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.service-card-wide:hover .service-card-media img { transform: scale(1.025); }
+.service-card-wide .number { margin: 3rem 3rem 0; align-self: start; }
+.service-card-wide h3 { margin: 4rem 3rem .8rem; align-self: end; }
+.service-card-wide p { margin: 0 3rem 3rem; }
 .feature { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; }
 .feature.reverse { grid-template-columns: .95fr 1.05fr; }
 .feature-media { min-height: 41rem; overflow: hidden; }
@@ -162,7 +172,7 @@ p { margin: 0 0 1.35rem; }
 .quote-form legend { width: 100%; margin-bottom: 1.25rem; padding: 0; font-family: var(--font-display); font-size: 1.55rem; font-weight: 700; line-height: 1.2; }
 .job-options { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
 .job-options label { min-height: 5.4rem; position: relative; cursor: pointer; }
-.job-options label:last-child { grid-column: 1 / -1; }
+.job-options label:last-child { grid-column: auto; }
 .job-options input { position: absolute; opacity: 0; pointer-events: none; }
 .job-options span { height: 100%; padding: 1rem; display: grid; align-content: center; color: var(--ink); background: var(--white); border: 1px solid var(--line); font-size: .82rem; font-weight: 800; transition: border-color .2s ease, color .2s ease, background .2s ease; }
 .job-options small { display: block; margin-top: .25rem; color: var(--muted); font-size: .68rem; font-weight: 500; line-height: 1.4; }
@@ -277,6 +287,8 @@ p { margin: 0 0 1.35rem; }
   h2 { font-size: clamp(2.5rem, 12vw, 3.25rem); }
   .utility-inner span { display: none; }
   .utility-inner { justify-content: center; }
+  .utility-phones { gap: .65rem; font-size: .61rem; }
+  .utility-phones a + a { padding-left: .65rem; }
   .nav-wrap { min-height: 4.9rem; }
   .hero { min-height: clamp(33rem, 68svh, 37rem); }
   .hero-media img { object-position: 67% center; }
@@ -312,6 +324,11 @@ p { margin: 0 0 1.35rem; }
   .service-card .number { margin-bottom: 2.1rem; font-size: .61rem; }
   .service-card h3 { margin-top: 0; margin-bottom: 0; font-size: 1.45rem; }
   .service-card p { display: none; }
+  .service-card-wide { min-height: 10.5rem; display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; }
+  .service-card-wide .service-card-media { min-height: 10.5rem; height: 100%; margin: 0; grid-row: 1 / 3; }
+  .service-card-wide .service-card-media img { object-position: 58% center; }
+  .service-card-wide .number { margin: 1rem 1rem .7rem; align-self: end; }
+  .service-card-wide h3 { margin: 0 1rem 1rem; align-self: start; }
   .feature-media { min-height: 18rem; }
   .feature-copy { padding: 2.6rem 1rem 3.2rem; }
   .feature-copy .lead { font-size: 1rem; line-height: 1.6; }

@@ -14,10 +14,13 @@ const serviceSchema = {
   name: service.name,
   description: service.description,
   provider: { '@id': 'https://ecologytreeservice.com/#business' },
-  areaServed: { '@type': 'AdministrativeArea', name: 'Westchester County, New York' }
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Westchester County, New York' },
+    { '@type': 'AdministrativeArea', name: 'Lower Connecticut' }
+  ]
 };
 ---
-<BaseLayout title={`${service.name} in Mount Kisco, NY | Ecology Tree Service`} description={service.description}>
+<BaseLayout title={`${service.name} | Ecology Tree Service, Mount Kisco`} description={service.description}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <section class="page-hero">
     <div class="shell">
@@ -25,7 +28,7 @@ const serviceSchema = {
       <p class="eyebrow" style="margin-top:2rem">{service.eyebrow}</p>
       <h1>{service.name}</h1>
       <p class="lead">{service.intro}</p>
-      <a class="button" href="tel:+19142429892">Call (914) 242-9892</a>
+      <a class="button" href="tel:+19147609892">Call Cell (914) 760-9892</a>
     </div>
   </section>
   <Image class="service-visual" src={service.image} alt={service.alt} widths={[720, 1080, 1440, 1920]} sizes="100vw" format="webp" quality={82} loading="eager" />
@@ -45,7 +48,7 @@ const serviceSchema = {
         <h2>Have a tree in mind?</h2>
         <p>Tell us the property location and what you’re seeing. We’ll discuss the next step.</p>
         <a class="button" href="/estimate">Request an Estimate</a>
-        <a class="button button-secondary" href="tel:+19142429892">Call Now</a>
+        <a class="button button-secondary" href="tel:+19147609892">Call Cell</a>
       </aside>
     </div>
   </section>

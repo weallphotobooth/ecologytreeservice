@@ -45,8 +45,9 @@ site with Node.js 22, and deploy `dist/` to the isolated Cloudflare Pages projec
 
 ## Public business details
 
-- Phone: (914) 242-9892
-- Address: 215 Croton Lake Road, Mount Kisco, NY 10549
+- Office: (914) 242-9892
+- Cell: (914) 760-9892
+- Location: Mount Kisco, NY
 - Website: https://ecologytreeservice.com
 - Forwarding email: info@ecologytreeservice.com
 

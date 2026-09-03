@@ -4,10 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import heroImage from '../assets/hero-arborist-v2.png';
 import removalImage from '../assets/tree-removal.png';
 import careImage from '../assets/tree-care.png';
-import pruningCardImage from '../assets/service-card-pruning.png';
-import removalCardImage from '../assets/service-card-removal.png';
-import stormCardImage from '../assets/service-card-storm.png';
-import stumpCardImage from '../assets/service-card-stump.png';
 import plantingCardImage from '../assets/service-card-planting.png';
 import pruningFeatureImage from '../assets/pruning-feature.png';
 
@@ -117,23 +113,19 @@ const faqSchema = {
       </div>
       <div class="service-grid" data-reveal>
         <a class="service-card" href="/services/tree-pruning">
-          <span class="service-card-media"><Image src={pruningCardImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
           <span class="number">01 / PRUNING</span><h3>Tree Pruning</h3><p>Selective work to improve clearance, structure, and the way mature trees fit the property.</p>
         </a>
         <a class="service-card" href="/services/tree-removal">
-          <span class="service-card-media"><Image src={removalCardImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
           <span class="number">02 / REMOVAL</span><h3>Tree Removal</h3><p>Controlled removal planning for trees that are declining, damaged, poorly located, or no longer viable.</p>
         </a>
         <a class="service-card" href="/services/storm-damage">
-          <span class="service-card-media service-card-media-storm"><Image src={stormCardImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
           <span class="number">03 / STORM</span><h3>Storm Damage</h3><p>Response for broken limbs and storm-affected trees, with safety and site conditions considered first.</p>
         </a>
         <a class="service-card" href="/services/stump-grinding">
-          <span class="service-card-media service-card-media-stump"><Image src={stumpCardImage} alt="" widths={[240, 420]} sizes="50vw" format="webp" quality={76} loading="lazy" /></span>
           <span class="number">04 / STUMPS</span><h3>Stump Grinding</h3><p>Practical stump removal to clear usable space and help prepare the area for what comes next.</p>
         </a>
         <a class="service-card service-card-wide" href="/services/tree-planting">
-          <span class="service-card-media service-card-media-planting"><Image src={plantingCardImage} alt="Ecology Tree Service crew planting a young tree at the correct depth" widths={[420, 720, 1080]} sizes="(max-width: 640px) 50vw, 58vw" format="webp" quality={78} loading="lazy" /></span>
+          <span class="service-card-media service-card-media-planting"><Image src={plantingCardImage} alt="Ecology Tree Service crew planting a young tree at the correct depth" widths={[420, 720, 1080]} sizes="50vw" format="webp" quality={78} loading="lazy" /></span>
           <span class="number">05 / PLANTING</span><h3>Tree Planting</h3><p>Site-aware tree selection and careful installation designed around mature size, proper depth, and successful establishment.</p>
         </a>
       </div>

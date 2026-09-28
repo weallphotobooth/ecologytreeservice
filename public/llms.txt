@@ -7,17 +7,17 @@ Ecology Tree Service provides site-specific residential and commercial tree work
 ## Primary pages
 
 - [Home](https://ecologytreeservice.com/): Company overview, service summary, contact details, and frequently asked questions.
-- [About](https://ecologytreeservice.com/about): Company history, full business address, and direct contact information.
-- [Service area](https://ecologytreeservice.com/service-area): Westchester County, New York, and Lower Connecticut.
-- [Request an estimate](https://ecologytreeservice.com/estimate): Secure estimate-request form and phone contacts.
+- [About](https://ecologytreeservice.com/about/): Company history, full business address, and direct contact information.
+- [Service area](https://ecologytreeservice.com/service-area/): Westchester County, New York, and Lower Connecticut.
+- [Request an estimate](https://ecologytreeservice.com/estimate/): Secure estimate-request form and phone contacts.
 
 ## Services
 
-- [Tree pruning](https://ecologytreeservice.com/services/tree-pruning): Selective pruning, crown thinning, clearance, cabling, and bracing.
-- [Tree removal](https://ecologytreeservice.com/services/tree-removal): Controlled sectional removal and crane-assisted removal when site conditions warrant it.
-- [Storm-damaged trees](https://ecologytreeservice.com/services/storm-damage): Assessment and cleanup after wind, rain, or snow. Never touch downed lines or anything they may be energizing; contact the utility and emergency services first.
-- [Stump grinding](https://ecologytreeservice.com/services/stump-grinding): Below-grade grinding planned around access and the site's next use; underground wood or roots may remain.
-- [Tree planting](https://ecologytreeservice.com/services/tree-planting): Site-aware species selection, correct planting depth, and establishment guidance.
+- [Tree pruning](https://ecologytreeservice.com/services/tree-pruning/): Selective pruning, crown thinning, clearance, cabling, and bracing.
+- [Tree removal](https://ecologytreeservice.com/services/tree-removal/): Controlled sectional removal and crane-assisted removal when site conditions warrant it.
+- [Storm-damaged trees](https://ecologytreeservice.com/services/storm-damage/): Assessment and cleanup after wind, rain, or snow. Never touch downed lines or anything they may be energizing; contact the utility and emergency services first.
+- [Stump grinding](https://ecologytreeservice.com/services/stump-grinding/): Below-grade grinding planned around access and the site's next use; underground wood or roots may remain.
+- [Tree planting](https://ecologytreeservice.com/services/tree-planting/): Site-aware species selection, correct planting depth, and establishment guidance.
 
 ## Contact
 

@@ -8,7 +8,7 @@ export function getStaticPaths() {
 }
 
 const service = Astro.props as Service;
-const serviceUrl = `https://ecologytreeservice.com/services/${service.slug}`;
+const serviceUrl = `https://ecologytreeservice.com/services/${service.slug}/`;
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -31,7 +31,7 @@ const serviceSchema = {
   breadcrumbs={[
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/#services' },
-    { name: service.name, path: `/services/${service.slug}` }
+    { name: service.name, path: `/services/${service.slug}/` }
   ]}
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />

@@ -8,11 +8,16 @@ export function getStaticPaths() {
 }
 
 const service = Astro.props as Service;
+const serviceUrl = `https://ecologytreeservice.com/services/${service.slug}`;
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
+  '@id': `${serviceUrl}#service`,
+  url: serviceUrl,
   name: service.name,
+  serviceType: service.name,
   description: service.description,
+  mainEntityOfPage: { '@id': `${serviceUrl}#webpage` },
   provider: { '@id': 'https://ecologytreeservice.com/#business' },
   areaServed: [
     { '@type': 'AdministrativeArea', name: 'Westchester County, New York' },
@@ -20,7 +25,15 @@ const serviceSchema = {
   ]
 };
 ---
-<BaseLayout title={`${service.name} | Ecology Tree Service, Mount Kisco`} description={service.description}>
+<BaseLayout
+  title={`${service.name} | Ecology Tree Service, Mount Kisco`}
+  description={service.description}
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/#services' },
+    { name: service.name, path: `/services/${service.slug}` }
+  ]}
+>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <section class="page-hero">
     <div class="shell">

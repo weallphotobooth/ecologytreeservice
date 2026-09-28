@@ -6,6 +6,7 @@ import plantingImage from '../assets/service-planting-detail.png';
 
 export const services = {
   'tree-pruning': {
+    slug: 'tree-pruning',
     name: 'Tree Pruning', eyebrow: 'Pruning & clearance',
     description: 'Professional tree pruning, crown thinning, cabling and bracing in Mount Kisco, Westchester County and Lower Connecticut.',
     intro: 'Selective pruning can improve clearance, reduce excess crown density, address damaged branches, and help a mature tree work better with the property around it.',
@@ -19,6 +20,7 @@ export const services = {
     ]
   },
   'tree-removal': {
+    slug: 'tree-removal',
     name: 'Tree Removal', eyebrow: 'Controlled tree work',
     description: 'Carefully planned tree removal, including crane-assisted work when appropriate, in Westchester County and Lower Connecticut.',
     intro: 'When a tree is declining, damaged, poorly located, or no longer viable, removal requires planning for the tree and everything around it.',
@@ -31,6 +33,7 @@ export const services = {
     ]
   },
   'storm-damage': {
+    slug: 'storm-damage',
     name: 'Storm-Damaged Trees', eyebrow: 'After wind, rain & snow',
     description: 'Help with storm-damaged trees and broken limbs in Westchester County and Lower Connecticut. Utility hazards must be secured first.',
     intro: 'Broken limbs and shifted trees can remain unstable after the weather clears. Keep people away from the area and address utility hazards first.',
@@ -43,6 +46,7 @@ export const services = {
     ]
   },
   'stump-grinding': {
+    slug: 'stump-grinding',
     name: 'Stump Grinding', eyebrow: 'Finish the space',
     description: 'Stump grinding for properties in Westchester County and Lower Connecticut, with the finished depth planned around the site’s next use.',
     intro: 'A remaining stump can interrupt mowing, planting, access, and the next plan for the landscape. Grinding helps return that space to use.',
@@ -55,6 +59,7 @@ export const services = {
     ]
   },
   'tree-planting': {
+    slug: 'tree-planting',
     name: 'Tree Planting', eyebrow: 'Right tree · right place',
     description: 'Professional tree planting and site-aware species selection in Mount Kisco, Westchester County and Lower Connecticut.',
     intro: 'A successful planting begins before the hole is dug—with the right tree, the right location, and a plan for establishment after installation.',

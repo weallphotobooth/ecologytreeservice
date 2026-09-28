@@ -1,4 +1,58 @@
+# AI search and user-directed assistants may discover and cite the site.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+# Model-training crawlers remain opted out without blocking their separate
+# search and user-requested assistant crawlers above.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+# General search engines remain fully crawlable.
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# All other well-behaved crawlers may index public pages.
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no, use=reference
 Allow: /
 
 Sitemap: https://ecologytreeservice.com/sitemap-index.xml

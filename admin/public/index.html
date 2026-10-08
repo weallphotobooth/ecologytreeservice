@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow,noarchive">
+    <title>Ecology Site Office</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand"><span class="brand-mark">E</span><span><strong>ECOLOGY</strong><small>Site Office</small></span></div>
+        <nav aria-label="Dashboard">
+          <button class="nav-item active" data-view="overview"><span>01</span>Overview</button>
+          <button class="nav-item" data-view="quotes"><span>02</span>Quote requests</button>
+          <button class="nav-item" data-view="content"><span>03</span>Wording &amp; SEO</button>
+          <button class="nav-item" data-view="images"><span>04</span>Website images</button>
+          <button class="nav-item" data-view="versions"><span>05</span>Publish &amp; history</button>
+        </nav>
+        <div class="sidebar-foot"><span class="status-dot"></span><span>Private Cloudflare workspace</span></div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <button class="menu-button" id="menu-button" aria-label="Open menu">Menu</button>
+          <div><p class="kicker">Ecology Tree Service</p><h1 id="view-title">Website overview</h1></div>
+          <div class="account"><a href="https://ecologytreeservice.com" target="_blank" rel="noreferrer">View website ↗</a><span id="account-email">Loading…</span></div>
+        </header>
+
+        <div id="notice" class="notice" role="status" aria-live="polite"></div>
+
+        <section class="panel active" data-panel="overview">
+          <div class="panel-head"><div><p class="kicker">Last <span id="period-label">30</span> days</p><h2>Website activity</h2></div><select id="period"><option value="7">7 days</option><option value="30" selected>30 days</option><option value="90">90 days</option><option value="365">12 months</option></select></div>
+          <div class="metric-grid" id="metrics"></div>
+          <div class="dashboard-grid">
+            <article class="card chart-card"><div class="card-head"><h3>Daily visits</h3><span>Anonymous, first-party count</span></div><div class="chart" id="traffic-chart"></div></article>
+            <article class="card"><div class="card-head"><h3>Devices</h3></div><div id="device-list" class="rank-list"></div></article>
+            <article class="card wide"><div class="card-head"><h3>Most-viewed pages</h3></div><div class="table-wrap"><table><thead><tr><th>Page</th><th>Views</th><th>Visitors</th></tr></thead><tbody id="page-table"></tbody></table></div></article>
+            <article class="card"><div class="card-head"><h3>Traffic sources</h3></div><div id="referrer-list" class="rank-list"></div></article>
+            <article class="card"><div class="card-head"><h3>Visitor countries</h3></div><div id="country-list" class="rank-list"></div></article>
+          </div>
+          <p class="privacy-note">Privacy note: the website does not store raw IP addresses. Visitors are counted with a rotating one-day anonymous hash.</p>
+        </section>
+
+        <section class="panel" data-panel="quotes">
+          <div class="panel-head"><div><p class="kicker">Website leads</p><h2>Quote requests</h2></div><input id="quote-search" class="search" type="search" placeholder="Search customer, town or service"></div>
+          <article class="card"><div class="table-wrap"><table class="quotes-table"><thead><tr><th>Received</th><th>Customer</th><th>Service</th><th>Location</th><th>Email</th><th></th></tr></thead><tbody id="quote-table"></tbody></table></div></article>
+        </section>
+
+        <section class="panel" data-panel="content">
+          <div class="panel-head"><div><p class="kicker">Draft workspace</p><h2>Edit wording &amp; search details</h2><p>Changes stay private until you publish them.</p></div><button class="button primary" id="save-content">Save draft</button></div>
+          <div class="editor-layout"><nav class="section-tabs" id="content-groups" aria-label="Content sections"></nav><form class="editor-form" id="content-form"></form></div>
+        </section>
+
+        <section class="panel" data-panel="images">
+          <div class="panel-head"><div><p class="kicker">Optimized automatically</p><h2>Website images</h2><p>Choose a photo, check its description, then upload. It stays in draft until published.</p></div></div>
+          <div class="image-grid" id="image-grid"></div>
+        </section>
+
+        <section class="panel" data-panel="versions">
+          <div class="publish-banner"><div><p class="kicker">Current draft</p><h2>Ready to update the public website?</h2><p>Publishing applies saved wording and uploaded images immediately. The previous published version is kept so it can be restored.</p></div><button class="button publish" id="publish-content">Publish website</button></div>
+          <article class="card"><div class="card-head"><div><h3>Version history</h3><span id="published-at">Nothing has been published through this dashboard yet.</span></div></div><div id="version-list" class="version-list"></div></article>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="quote-dialog"><button class="dialog-close" aria-label="Close">×</button><div id="quote-detail"></div></dialog>
+    <script src="/app.js" defer></script>
+  </body>
+</html>

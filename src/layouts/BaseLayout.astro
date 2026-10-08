@@ -15,6 +15,7 @@ interface Props {
   imageAlt?: string;
   noindex?: boolean;
   breadcrumbs?: BreadcrumbItem[];
+  contentPrefix?: string;
 }
 
 const {
@@ -23,7 +24,8 @@ const {
   image = '/og-image.jpg',
   imageAlt = 'Ecology Tree Service logo beside arborists working in a mature tree',
   noindex = false,
-  breadcrumbs = []
+  breadcrumbs = [],
+  contentPrefix
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
@@ -155,8 +157,8 @@ const structuredData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title data-content-key={contentPrefix ? `${contentPrefix}.seo.title` : undefined}>{title}</title>
+    <meta name="description" content={description} data-content-key={contentPrefix ? `${contentPrefix}.seo.description` : undefined} data-content-attr="content" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -170,8 +172,8 @@ const structuredData = {
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ecology Tree Service" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={title} data-content-key={contentPrefix ? `${contentPrefix}.seo.title` : undefined} data-content-attr="content" />
+    <meta property="og:description" content={description} data-content-key={contentPrefix ? `${contentPrefix}.seo.description` : undefined} data-content-attr="content" />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:alt" content={imageAlt} />
@@ -179,8 +181,8 @@ const structuredData = {
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={title} data-content-key={contentPrefix ? `${contentPrefix}.seo.title` : undefined} data-content-attr="content" />
+    <meta name="twitter:description" content={description} data-content-key={contentPrefix ? `${contentPrefix}.seo.description` : undefined} data-content-attr="content" />
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={imageAlt} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
@@ -211,6 +213,22 @@ const structuredData = {
           if (!ticking) { requestAnimationFrame(update); ticking = true; }
         }, { passive: true });
       }
+    </script>
+    <script is:inline>
+      (() => {
+        if (location.hostname !== 'ecologytreeservice.com' && location.hostname !== 'www.ecologytreeservice.com') return;
+        if (navigator.doNotTrack === '1') return;
+        const payload = JSON.stringify({
+          path: location.pathname,
+          referrer: document.referrer,
+          screenWidth: Math.round(window.innerWidth / 100) * 100
+        });
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon('/api/analytics/view', new Blob([payload], { type: 'application/json' }));
+        } else {
+          fetch('/api/analytics/view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(() => {});
+        }
+      })();
     </script>
   </body>
 </html>

@@ -47,6 +47,15 @@ jobs:
             npx wrangler pages project create ecologytreeservice-site --production-branch main
           fi
 
+      - name: Configure dashboard and analytics secrets
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ADMIN_API_SECRET: ${{ secrets.ECOLOGY_ADMIN_API_SECRET }}
+          ANALYTICS_HASH_SECRET: ${{ secrets.ECOLOGY_ANALYTICS_HASH_SECRET }}
+        run: |
+          printf '%s' "$ADMIN_API_SECRET" | npx wrangler pages secret put ADMIN_API_SECRET --project-name ecologytreeservice-site
+          printf '%s' "$ANALYTICS_HASH_SECRET" | npx wrangler pages secret put ANALYTICS_HASH_SECRET --project-name ecologytreeservice-site
+
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

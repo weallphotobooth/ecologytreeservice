@@ -1,3 +1,5 @@
+import { handleAnalyticsView, handleDashboardRequest, serveManagedImage, serveSite } from "./dashboard-worker.js";
+
 const CLOUDFLARE_ACCOUNT_ID = "31d06642a08b1bd412f3339cc535179a";
 const QUOTE_DESTINATION = "ecologytree@gmail.com";
 const QUOTE_SENDER = "quotes@ecologytreeservice.com";
@@ -207,6 +209,17 @@ export default {
         return json({ message: "We could not save the request right now." }, 500);
       }
     }
-    return env.ASSETS.fetch(request);
+    if (url.pathname === "/api/analytics/view") {
+      if (request.method !== "POST") return new Response(null, { status: 405 });
+      try { return await handleAnalyticsView(request, env); }
+      catch (error) {
+        console.error("Analytics event failed", { message: error instanceof Error ? error.message : "Unknown error" });
+        return new Response(null, { status: 204 });
+      }
+    }
+    if (url.pathname.startsWith("/media/site/")) return serveManagedImage(url, env);
+    const adminResponse = await handleDashboardRequest(request, env);
+    if (adminResponse) return adminResponse;
+    return serveSite(request, env);
   }
 };

@@ -5,6 +5,7 @@ import QuoteForm from '../components/QuoteForm.astro';
 <BaseLayout
   title="Request a Tree Service Estimate | Ecology Tree Service"
   description="Request a pruning, removal, storm-damage, stump-grinding or tree-planting estimate from Ecology Tree Service in Mount Kisco."
+  contentPrefix="estimate"
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Request an Estimate', path: '/estimate/' }]}
 >
   <section class="section quote estimate-page">
@@ -12,8 +13,8 @@ import QuoteForm from '../components/QuoteForm.astro';
       <div class="estimate-copy">
         <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>Estimate</span></nav>
         <p class="eyebrow estimate-eyebrow">Request an estimate</p>
-        <h1>Tell us what the property needs.</h1>
-        <p class="lead">A few practical details help us understand the tree, access, timing, and the best way to follow up.</p>
+        <h1 data-content-key="estimate.hero.heading">Tell us what the property needs.</h1>
+        <p class="lead" data-content-key="estimate.hero.lead">A few practical details help us understand the tree, access, timing, and the best way to follow up.</p>
         <div class="estimate-direct">
           <span>Prefer to talk?</span>
           <a href="tel:+19142429892">Office (914) 242-9892</a>

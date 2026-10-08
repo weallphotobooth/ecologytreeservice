@@ -28,6 +28,7 @@ const serviceSchema = {
 <BaseLayout
   title={`${service.name} | Ecology Tree Service, Mount Kisco`}
   description={service.description}
+  contentPrefix={`services.${service.slug}`}
   breadcrumbs={[
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/#services' },
@@ -39,19 +40,19 @@ const serviceSchema = {
     <div class="shell">
       <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/#services">Services</a><span>/</span><span>{service.name}</span></nav>
       <p class="eyebrow" style="margin-top:2rem">{service.eyebrow}</p>
-      <h1>{service.name}</h1>
-      <p class="lead">{service.intro}</p>
+      <h1 data-content-key={`services.${service.slug}.name`}>{service.name}</h1>
+      <p class="lead" data-content-key={`services.${service.slug}.intro`}>{service.intro}</p>
       <a class="button" href="tel:+19147609892">Call Cell (914) 760-9892</a>
     </div>
   </section>
-  <Image class="service-visual" src={service.image} alt={service.alt} widths={[720, 1080, 1440, 1920]} sizes="100vw" format="webp" quality={82} loading="eager" />
+  <Image data-content-image={`services.${service.slug}`} class="service-visual" src={service.image} alt={service.alt} widths={[720, 1080, 1440, 1920]} sizes="100vw" format="webp" quality={82} loading="eager" />
   <section class="section section-white">
     <div class="shell content-grid">
       <article class="prose">
-        {service.sections.map((section) => (
+        {service.sections.map((section, index) => (
           <section>
             <h2>{section.title}</h2>
-            <p>{section.body}</p>
+            <p data-content-key={`services.${service.slug}.sections.${index}.body`}>{section.body}</p>
             {'bullets' in section && section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
           </section>
         ))}

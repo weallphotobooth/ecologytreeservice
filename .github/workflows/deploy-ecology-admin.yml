@@ -41,36 +41,39 @@ jobs:
         run: npm ci
 
       - name: Ensure isolated Pages project exists
+        working-directory: admin
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          if ! npx wrangler pages project list --config admin/wrangler.jsonc | grep -q "$PROJECT_NAME"; then
-            npx wrangler pages project create "$PROJECT_NAME" --production-branch main --config admin/wrangler.jsonc
+          if ! ../node_modules/.bin/wrangler pages project list | grep -q "$PROJECT_NAME"; then
+            ../node_modules/.bin/wrangler pages project create "$PROJECT_NAME" --production-branch main
           fi
 
       - name: Configure private API secret
+        working-directory: admin
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           ADMIN_API_SECRET: ${{ secrets.ECOLOGY_ADMIN_API_SECRET }}
-        run: printf '%s' "$ADMIN_API_SECRET" | npx wrangler pages secret put ADMIN_API_SECRET --project-name "$PROJECT_NAME" --config admin/wrangler.jsonc
+        run: printf '%s' "$ADMIN_API_SECRET" | ../node_modules/.bin/wrangler pages secret put ADMIN_API_SECRET --project-name "$PROJECT_NAME"
 
       - name: Configure Cloudflare Access verification
+        working-directory: admin
         if: ${{ env.CF_ACCESS_AUD != '' && env.CF_ACCESS_TEAM_DOMAIN != '' }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          printf '%s' "$CF_ACCESS_AUD" | npx wrangler pages secret put CF_ACCESS_AUD --project-name "$PROJECT_NAME" --config admin/wrangler.jsonc
-          printf '%s' "$CF_ACCESS_TEAM_DOMAIN" | npx wrangler pages secret put CF_ACCESS_TEAM_DOMAIN --project-name "$PROJECT_NAME" --config admin/wrangler.jsonc
+          printf '%s' "$CF_ACCESS_AUD" | ../node_modules/.bin/wrangler pages secret put CF_ACCESS_AUD --project-name "$PROJECT_NAME"
+          printf '%s' "$CF_ACCESS_TEAM_DOMAIN" | ../node_modules/.bin/wrangler pages secret put CF_ACCESS_TEAM_DOMAIN --project-name "$PROJECT_NAME"
 
       - name: Deploy dashboard
+        working-directory: admin
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: >-
-          npx wrangler pages deploy admin/public
+          ../node_modules/.bin/wrangler pages deploy public
           --project-name "$PROJECT_NAME"
           --branch main
           --commit-hash "$GITHUB_SHA"
-          --config admin/wrangler.jsonc
 
       - name: Attach dedicated admin domain
         env:

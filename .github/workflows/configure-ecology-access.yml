@@ -1,0 +1,70 @@
+name: Configure Ecology Dashboard Access
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  configure:
+    name: Allow approved Ecology email
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CLOUDFLARE_ACCOUNT_ID: 31d06642a08b1bd412f3339cc535179a
+      ACCESS_DOMAIN: admin.ecologytreeservice.com
+      ACCESS_EMAIL: ecologytree@gmail.com
+
+    steps:
+      - name: Configure exact Access application and policy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID"
+          auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
+
+          organization="$(curl --fail-with-body --silent --show-error "${auth[@]}" "$api/access/organizations")"
+          team_domain="$(printf '%s' "$organization" | jq -r '.result.auth_domain // empty')"
+          if [ -z "$team_domain" ]; then
+            echo "Cloudflare Access organization is not initialized for this account." >&2
+            exit 1
+          fi
+
+          applications="$(curl --fail-with-body --silent --show-error "${auth[@]}" "$api/access/apps")"
+          app_count="$(printf '%s' "$applications" | jq --arg domain "$ACCESS_DOMAIN" '[.result[] | select(.domain == $domain)] | length')"
+          if [ "$app_count" -gt 1 ]; then
+            echo "More than one Access application already uses $ACCESS_DOMAIN; refusing to modify permissions." >&2
+            exit 1
+          fi
+
+          if [ "$app_count" -eq 0 ]; then
+            app_body="$(jq -n --arg name 'Ecology Site Office' --arg domain "$ACCESS_DOMAIN" '{name:$name,domain:$domain,type:"self_hosted",session_duration:"24h",app_launcher_visible:false,auto_redirect_to_identity:false}')"
+            app_response="$(curl --fail-with-body --silent --show-error -X POST "${auth[@]}" --data "$app_body" "$api/access/apps")"
+          else
+            app_response="$(printf '%s' "$applications" | jq --arg domain "$ACCESS_DOMAIN" '{success:true,result:(.result[] | select(.domain == $domain))}')"
+          fi
+
+          app_id="$(printf '%s' "$app_response" | jq -r '.result.id // empty')"
+          app_aud="$(printf '%s' "$app_response" | jq -r '.result.aud // empty')"
+          if [ -z "$app_id" ] || [ -z "$app_aud" ]; then
+            echo "Cloudflare did not return the Access application identifiers." >&2
+            exit 1
+          fi
+
+          policies="$(curl --fail-with-body --silent --show-error "${auth[@]}" "$api/access/apps/$app_id/policies")"
+          policy_count="$(printf '%s' "$policies" | jq '.result | length')"
+          exact_count="$(printf '%s' "$policies" | jq --arg email "$ACCESS_EMAIL" '[.result[] | select(.decision == "allow" and (.include | length) == 1 and .include[0].email.email == $email and ((.exclude // []) | length) == 0 and ((.require // []) | length) == 0)] | length')"
+
+          if [ "$policy_count" -eq 0 ]; then
+            policy_body="$(jq -n --arg name 'Ecology Site Office — approved email only' --arg email "$ACCESS_EMAIL" '{name:$name,decision:"allow",precedence:1,include:[{email:{email:$email}}],exclude:[],require:[],session_duration:"24h"}')"
+            curl --fail-with-body --silent --show-error -X POST "${auth[@]}" --data "$policy_body" "$api/access/apps/$app_id/policies" >/dev/null
+          elif [ "$policy_count" -ne 1 ] || [ "$exact_count" -ne 1 ]; then
+            echo "The existing Access application has a policy outside the requested one-email scope; refusing to broaden or replace it." >&2
+            exit 1
+          fi
+
+          echo "ACCESS_AUD=$app_aud"
+          echo "ACCESS_TEAM_DOMAIN=$team_domain"
+          echo "ACCESS_ALLOWED_EMAIL=$ACCESS_EMAIL"
